@@ -32,6 +32,7 @@ built data (without code)
 #### src/tool
 
 util programs
+as to MAC/65 - please download it from: https://atariwiki.org/wiki/Wiki.jsp?page=Mac65
 
 #### src/tbd
 
