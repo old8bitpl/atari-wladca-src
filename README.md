@@ -12,6 +12,7 @@ Folder with categorized files
 #### src/m65
 
 MAC/65 sources (the actual code)
+main game file: MAIN.M65 (includes other INC files. Checkout should be on H1:)
 
 #### src/graph
 
