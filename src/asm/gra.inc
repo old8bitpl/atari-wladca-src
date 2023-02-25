@@ -1,5 +1,5 @@
 ;
-; MODUL: วาม
+; MODUL: GRA
 ;
 ;
 COLORSTABB .BYTE 0,10,0,0,0
@@ -408,21 +408,21 @@ PLOTMAN1 LDA (ZN),Y
          BNE PLOTMAN1
 PLOTMAN2 RTS 
 ;
-DATADAT  .SBYTE "   RUCH MA:        ROK:     ,           "
-ZLOTODATADAT .SBYTE "     : Z^OTO:      ROK:     ,           "
+DATADAT  .SB "   RUCH MA:        ROK:     ,           "
+ZLOTODATADAT .SB "     : Z^OTO:      ROK:     ,           "
 ;
-MIESDAT  .SBYTE "STYCZE_         "
-         .SBYTE "LUTY            "
-         .SBYTE "MARZEC          "
-         .SBYTE "KWIECIE_        "
-         .SBYTE "MAJ             "
-         .SBYTE "CZERWIEC        "
-         .SBYTE "LIPIEC          "
-         .SBYTE "SIERPIE_        "
-         .SBYTE "WRZESIE_        "
-         .SBYTE "PADZIERNIK     "
-         .SBYTE "LISTOPAD        "
-         .SBYTE "GRUDZIE_        "
+MIESDAT  .SB "STYCZE_         "
+         .SB "LUTY            "
+         .SB "MARZEC          "
+         .SB "KWIECIE_        "
+         .SB "MAJ             "
+         .SB "CZERWIEC        "
+         .SB "LIPIEC          "
+         .SB "SIERPIE_        "
+         .SB "WRZESIE_        "
+         .SB "PADZIERNIK     "
+         .SB "LISTOPAD        "
+         .SB "GRUDZIE_        "
 ;
 TIMEUPPROC LDA HUMANPL,X
          TAY 
@@ -642,9 +642,9 @@ MUSICPLAY4 STA $D200,Y
          BPL MUSICPLAY4
 MUSICPLAY5 RTS 
 ;
-SELMANTXT1 .SBYTE "       GRACZ 1 - WYBIERZ POSTA\:        "
-SELMANTXT2 .SBYTE "           WPISZ SWOJE IMI]:            "
-SELMANTXT3 .SBYTE "      TA POSTA\ JEST JU WYBRANA!       "
+SELMANTXT1 .SB "       GRACZ 1 - WYBIERZ POSTA\:        "
+SELMANTXT2 .SB "           WPISZ SWOJE IMI]:            "
+SELMANTXT3 .SB "      TA POSTA\ JEST JU WYBRANA!       "
 ;
 SELMAN   LDY #31
 SELMAN1  LDA NAMPLDAT,Y
@@ -758,7 +758,7 @@ KEYTAB1  .BYTE $3F,$15,$12,$3A,$2A,$38,$3D,$39,$0D,$01,$05,$00,$25,$23,$08,$0A,$
          .BYTE $0B,$10,$2E,$16,$2B,$17
          .BYTE $BF,$92,$AA,$80,$A3,$88,$BE,$97,$96,$34,$0C
 ;
-KEYTAB2  .SBYTE "ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_ þÿ"
+KEYTAB2  .SB "ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_ þÿ"
 ;
 GETNAME  PHA 
 GETNAME4 LDA # <SELMANTXT2
@@ -800,7 +800,7 @@ GETNAME3 LDA MENULINE+17,X
          BNE GETNAME3
          JMP CHKIMM
 ;
-PASSWORD .SBYTE "SECOH"
+PASSWORD .SB "SECOH"
 ;
 CHKIMM   LDA IMMZN
          BEQ CHKIMM3
