@@ -1,5 +1,5 @@
 ;
-; MODUL: Ã¡¬≈Ã”
+; MODUL: LABELS
 ;
 ;
 PMBASE   =   $00
@@ -30,7 +30,7 @@ TARCZAFAZATAB = FLAGAFAZATAB+$0100
 TRUPPICDAT = TARCZAFAZATAB+$0180
 KONIECPIC =  TRUPPICDAT+$0198
 ;
-; –œ“‘Ÿ†…Øœ††®§ƒ∞∞∞≠§ƒ∑∆∆©
+; PORTY I/O  ($D000-$D7FF)
 ;
 CHARGEN  =   $D800
 ;
@@ -52,67 +52,67 @@ KRZYKDAT =   MACHANIMBUF+$1000
 ;
 CPUVECTORS = KRZYKDAT+$06FA
 ;
-; ⁄Õ…≈ŒŒ≈†«“Ÿ
+; ZMIENNE GRY
 ;
 ZN       =   $C0
 IZN      =   ZN+$10
 VZN      =   IZN+$10
 DZN      =   VZN+$10
 ;
-LSCROLLZN *= *+1
-TEXTZN   *=  *+3
-NRTEXT   *=  *+1
-IPOSST   *=  *+1
-XPOSST   *=  *+1
-DISTST   *=  *+1
-FAZAST   *=  *+1
-HITSTZN  *=  *+1
-NTARCZA  *=  *+1
-FLAGAFAZAZN *= *+1
-FLAGAPAUZAZN *= *+1
-SFLAGAPAUZAZN *= *+1
-WIATRPAUZAZN *= *+1
-WIATRSILAZN *= *+1
-NAMPLTAB *=  *+32
-KSTAB    *=  *+24
-SOJTAB   *=  *+16
-WOJKSTAB *=  *+48
-KSZN     *=  *+4
-DOCHZN   *=  *+8
-WOJZN    *=  *+8
-KASAZN   *=  *+8
-ARMPOS   *=  *+4
-ROK      *=  *+2
-MIESIAC  *=  *+1
-GRACZ    *=  *+1
-BUFFER   *=  *+24
-COLORSBUFA *= *+5
-COLORSBUFB *= *+5
-ANIMFAZA *=  *+1
-ANIMPAUZA *= *+1
-VBLTIMER *=  *+1
-POM      *=  *+5
-XCEL     *=  *+1
-XCELMIN  *=  *+1
-XCELMAX  *=  *+1
-YCEL     *=  *+1
-YCELMIN  *=  *+1
-YCELMAX  *=  *+1
-HUMANPL  *=  *+2
-USERVBLVECT *= *+2
-CHARGENVECT *= *+1
-QUITZN   *=  *+1
-MUSICZN  *=  *+1
-IMMZN    *=  *+1
-RTIMER   *=  *+4
-BUYSOLD  *=  *+4
-NBITEW   *=  *+2
-NWINBITEW *= *+2
-NOBL     *=  *+2
-NWINOBL  *=  *+2
-NMCY     *=  *+2
+LSCROLLZN	org *+1
+TEXTZN   	org *+3
+NRTEXT   	org *+1
+IPOSST   	org *+1
+XPOSST   	org *+1
+DISTST   	org *+1
+FAZAST   	org *+1
+HITSTZN  	org *+1
+NTARCZA  	org *+1
+FLAGAFAZAZN org *+1
+FLAGAPAUZAZN org *+1
+SFLAGAPAUZAZN org *+1
+WIATRPAUZAZN org *+1
+WIATRSILAZN	org *+1
+NAMPLTAB 	org *+32
+KSTAB    	org *+24
+SOJTAB   	org *+16
+WOJKSTAB 	org *+48
+KSZN     	org *+4
+DOCHZN   	org *+8
+WOJZN    	org *+8
+KASAZN   	org *+8
+ARMPOS   	org *+4
+ROK      	org *+2
+MIESIAC  	org *+1
+GRACZ    	org *+1
+BUFFER   	org *+24
+COLORSBUFA 	org *+5
+COLORSBUFB 	org *+5
+ANIMFAZA 	org *+1
+ANIMPAUZA 	org *+1
+VBLTIMER 	org *+1
+POM      	org *+5
+XCEL     	org *+1
+XCELMIN  	org *+1
+XCELMAX  	org *+1
+YCEL     	org *+1
+YCELMIN  	org *+1
+YCELMAX  	org *+1
+HUMANPL  	org *+2
+USERVBLVECT org *+2
+CHARGENVECT org *+1
+QUITZN   	org *+1
+MUSICZN  	org *+1
+IMMZN    	org *+1
+RTIMER   	org *+4
+BUYSOLD  	org *+4
+NBITEW   	org *+2
+NWINBITEW 	org *+2
+NOBL     	org *+2
+NWINOBL  	org *+2
+NMCY     	org *+2
 ENDSTAT
-NOPCJA   *=  *+1
+NOPCJA   	org *+1
 ;
-FREEMEM  *=  *+9
+FREEMEM  	org *+9
 ;
