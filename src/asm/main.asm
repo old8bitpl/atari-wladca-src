@@ -1,35 +1,33 @@
 ;
-; MODUL: маин
+; MODUL: MAIN
 ;
+         org $0800
 ;
-         .OPT NO LIST
-;
-         *=  $0800
-;
-         .INCLUDE #H1:LABELS.INC
-         .INCLUDE #H1:IO.INC
-         .INCLUDE #H1:MACHINA.INC
-         .INCLUDE #H1:CZOLO.INC
-         .INCLUDE #H1:GRA.INC
-         .INCLUDE #H1:MYSL.INC
-         .INCLUDE #H1:BITWA.INC
-         .INCLUDE #H1:TURNIEJ.INC
-         .INCLUDE #H1:GRINT.INC
-         .INCLUDE #H1:KONIEC.INC
 ;
 ; TU ZOSTANA WSTAWIONE:
 ;
-;WARTOSCI ETYKIET DANYCH,
-;BLOK UNIWERSALNYCH PROCEDUR,
-;    OBLEZENIE ZAMKU,
-;        CZOLOWKA,
-; GLOWNA PROCEDURA GRY,
-;  PROCEDURY MYSLENIA,
-;    PROCEDURA BITWY,
-;       TURNIEJU,
-;   INTERFEJS GRACZA,
-;        KONCOWKA.
+; WARTOSCI ETYKIET DANYCH
+         ICL 'labels.inc'
+; BLOK UNIWERSALNYCH PROCEDUR
+         ICL 'io.inc'
+; OBLEZENIE ZAMKU
+         ICL 'machina.inc'
+; CZOLOWKA
+         ICL 'czolo.inc'
+; GLOWNA PROCEDURA GRY
+         ICL 'gra.inc'
+; PROCEDURY MYSLENIA
+         ICL 'mysl.inc'
+; PROCEDURA BITWY
+         ICL 'bitwa.inc'
+; TURNIEJ
+         ICL 'turniej.inc'
+; INTERFEJS GRACZA
+         ICL 'grint.inc'
+; KONCOWKA
+         ICL 'koniec.inc'
 ;
+
 GO       LDX #$FF
          TXS 
          LDA #$00
@@ -47,12 +45,8 @@ GO       LDX #$FF
 MAIN     JSR CZOLO
          JSR GRA
          JMP MAIN
+
 ;
-         .OPT LIST
-;
-         *=  $02E0
+         org $02E0
 ;
          .WORD GO
-;
-         .OPT NO LIST
-;
