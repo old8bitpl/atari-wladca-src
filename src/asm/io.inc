@@ -1,5 +1,5 @@
 ;
-; MODUL: ио
+; MODUL: IO
 ;
 ;
 DL       .BYTE 112,96,2+64+128
