@@ -1,18 +1,24 @@
 
 ## Content (folders)
 
-### download
+### archived/download
 
 Original content from atari disks (requires cleaning)
+
+### archived/src/m65
+
+MAC/65 sources (the actual code)
+main game file: MAIN.M65 (includes other INC files. Checkout should be on H1:)
 
 ### src
 
 Folder with categorized files
 
-#### src/m65
+#### src/asm
 
-MAC/65 sources (the actual code)
-main game file: MAIN.M65 (includes other INC files. Checkout should be on H1:)
+Mads sources (the actual code), converted and adapted from MAC/65 sources
+main game file: main.asm (includes other inc files)
+Mads: https://github.com/tebe6502/Mad-Assembler and https://mads.atari8.info/
 
 #### src/graph
 
