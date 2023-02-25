@@ -1,8 +1,8 @@
 ;
-; MODUL: мацхина
+; MODUL: MACHINA
 ;
 ;
-KULEDAT  .SBYTE "         KULE DO KATAPULTY:             "
+KULEDAT  .SB "         KULE DO KATAPULTY:             "
 ;
 MACHINA  LDA ZN
          PHA 
