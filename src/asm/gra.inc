@@ -942,3 +942,4 @@ FIND3KS1 LDX VZN
          STA ARMPOS,X
          RTS 
 ;
+
