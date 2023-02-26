@@ -1,11 +1,19 @@
 
 ## Content (folders)
 
-### archived/download
+### archived
+
+Folder containing archived content (no longer need to work on)
+
+#### archived/atr
 
 Original content from atari disks (requires cleaning)
 
-### archived/src/m65
+#### archived/atr.extracted
+
+Extracted files from original atari disks
+
+#### archived/src/m65
 
 MAC/65 sources (the actual code)
 main game file: MAIN.M65 (includes other INC files. Checkout should be on H1:)
