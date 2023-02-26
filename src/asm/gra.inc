@@ -11,9 +11,9 @@ ANIMPROC INC ANIMPAUZA
          LDA #0
          STA ANIMPAUZA
          LDA ANIMFAZA
-         ASL A
-         ASL A
-         ASL A
+         ASL
+         ASL
+         ASL
          CLC 
          ADC # <ANIMBUF
          STA IZN
@@ -87,11 +87,11 @@ NMIOBS   PHA
          PHA 
          LDA $D40F
          STA $D40F
-         ASL A
+         ASL
          BCC NMIOBS1
          JSR DLIOBS
          JMP NMIOBS2
-NMIOBS1  ASL A
+NMIOBS1  ASL
          BCC NMIOBS2
          JSR VBLOBS
 NMIOBS2  PLA 
@@ -200,15 +200,15 @@ NULLPROC RTS
 SETSCR   PHA 
          JSR SCREENOFF
          PLA 
-SETSCRPROC ASL A
+SETSCRPROC ASL
          TAY 
          LDA USERVBLPROC,Y
          STA USERVBLVECT
          LDA USERVBLPROC+1,Y
          STA USERVBLVECT+1
          TYA 
-         ASL A
-         ASL A
+         ASL
+         ASL
          CLC 
          ADC # >MAPAPIC
          STA CHARGENVECT
@@ -276,7 +276,7 @@ REFRSCR1 CPX ARMPOS
          CPX ARMPOS+3
          BEQ REFRSCR11
          TXA 
-         ASL A
+         ASL
          TAY 
          LDA SHIELDTAB,Y
          CLC 
@@ -294,7 +294,7 @@ REFRSCR11 INX
          LDX #0
 REFRSCR2 LDA ARMPOS,X
          BMI REFRSCR7
-         ASL A
+         ASL
          TAY 
          CLC 
          LDA SHIELDTAB,Y
@@ -311,7 +311,7 @@ REFRSCR7 INX
          BNE REFRSCR2
          LDX #0
 REFRSCR3 TXA 
-         ASL A
+         ASL
          TAY 
          CLC 
          LDA FLAGTAB,Y
@@ -356,10 +356,10 @@ REFRSCR8 PHP
          PLP 
          JSR CONVDEC
          LDA MIESIAC
-         ASL A
-         ASL A
-         ASL A
-         ASL A
+         ASL
+         ASL
+         ASL
+         ASL
          TAY 
          LDX #0
 REFRSCR6 LDA MIESDAT,Y
@@ -374,7 +374,7 @@ REFRSCR6 LDA MIESDAT,Y
          LDY #0
          JSR PRINTPLNAME
          LDA GRACZ
-         ASL A
+         ASL
          TAX 
          LDA #0
          CLC 
@@ -454,7 +454,7 @@ CHKGRTRUP LDX GRACZ
          LDA #255
          STA ARMPOS,X
          TXA 
-         ASL A
+         ASL
          TAX 
          LDA #0
          STA DOCHZN,X
@@ -672,7 +672,7 @@ SELMAN3  LDA #1
          SEC 
          JSR PRINTNULL
          LDA NOPCJA
-         LSR A
+         LSR
          TAY 
          JSR WAITFIRE
          JMP SELMAN3
@@ -786,9 +786,9 @@ GETNAME1 JSR GETKEY
          INC VZN
          BNE GETNAME1
 GETNAME2 PLA 
-         ASL A
-         ASL A
-         ASL A
+         ASL
+         ASL
+         ASL
          TAY 
          LDX #0
 GETNAME3 LDA MENULINE+17,X
@@ -845,7 +845,7 @@ INITGRA3 LDA #20
          STA WOJZN+1,Y
          STA KASAZN+1,Y
          TYA 
-         LSR A
+         LSR
          CMP HUMANPL
          BEQ INITGRA9
          CMP HUMANPL+1
@@ -912,9 +912,9 @@ FIND3KS  STX VZN
 FIND3KS1 LDX VZN
          JSR FINDKSPROC
          STA VZN+1
-         ASL A
-         ASL A
-         ASL A
+         ASL
+         ASL
+         ASL
          TAY 
          LDA NEARTAB,Y
          BMI FIND3KS1

@@ -28,7 +28,7 @@ RUCHGR21 JSR CHKFRKS
          TAY 
          TXA 
          STA ARMPOS,Y
-         ASL A
+         ASL
          TAX 
          LDA #0
          STA WOJKSTAB,X
@@ -38,7 +38,7 @@ RUCHGR21 JSR CHKFRKS
          JMP RUCHGR20
 RUCHGR1  JSR WOJKUPA
          LDA GRACZ
-         ASL A
+         ASL
          TAX 
          LDA WOJZN+1,X
          BNE RUCHGR2
@@ -95,7 +95,7 @@ RUCHGR9  RTS
 RUCHGR7  CMP #64
          BCC RUCHGR10
          LDA GRACZ
-         ASL A
+         ASL
          TAX 
          LDA KASAZN+1,X
          BEQ RUCHGR12
@@ -103,7 +103,7 @@ RUCHGR7  CMP #64
          BNE RUCHGR13
          BEQ RUCHGR20
 RUCHGR10 LDA GRACZ
-         ASL A
+         ASL
          TAX 
          LDA KASAZN+1,X
          BEQ RUCHGR12
@@ -159,7 +159,7 @@ DOCHUP2  INY
          BNE DOCHUP3
 DOCHUP1  LDA GRACZ
          TAY 
-         ASL A
+         ASL
          PHA 
          TAX 
          CPY HUMANPL
@@ -201,9 +201,9 @@ CHKFRKS4 LDA BUFFER,Y
          TYA 
          PHA 
          TXA 
-         ASL A
-         ASL A
-         ASL A
+         ASL
+         ASL
+         ASL
          TAY 
          LDA #8
          STA ZN+2
@@ -240,9 +240,9 @@ CRBUF    STA ZN
 CRBUF4   LDY ZN+1
          LDA BUFFER,Y
          BMI CRBUF1
-         ASL A
-         ASL A
-         ASL A
+         ASL
+         ASL
+         ASL
          TAY 
          LDA #8
          STA ZN+2
@@ -288,12 +288,12 @@ PUTBUF2  RTS
 WOJKUPA  LDY #0
 WOJKUPA1 LDA BUFFER,Y
          BMI WOJKUPA2
-         ASL A
+         ASL
          TAX 
          TYA 
          PHA 
          LDA GRACZ
-         ASL A
+         ASL
          TAY 
          CLC 
          LDA WOJZN,Y
@@ -356,9 +356,9 @@ CHKBDKS14 LDA GRACZ
          BNE CHKBDKS4
          TYA 
          PHA 
-         ASL A
-         ASL A
-         ASL A
+         ASL
+         ASL
+         ASL
          TAY 
          LDA #8
          STA ZN+2
@@ -428,9 +428,9 @@ PROPSELL STA ZN
          BNE PROPSELL1
 PROPSELL11 JMP PROPSELLG
 PROPSELL1 LDA ZN+2
-         ASL A
-         ASL A
-         ASL A
+         ASL
+         ASL
+         ASL
          TAY 
          LDA #8
          STA ZN+4
@@ -453,7 +453,7 @@ PROPSELL9 LDA ZN+5
          AND #1
          BEQ PROPSELL2
          LDA ZN
-         ASL A
+         ASL
          TAX 
          LDA KASAZN+1,X
          BNE PROPSELL3
@@ -467,7 +467,7 @@ PROPSELL3 LDA $D20A
          CMP ZN+1
          BCC PROPSELL2
 PROPSELLPROC LDA ZN
-         ASL A
+         ASL
          TAX 
          SEC 
          LDA KASAZN,X
@@ -476,7 +476,7 @@ PROPSELLPROC LDA ZN
          BCS PROPSELL5
          DEC KASAZN+1,X
 PROPSELL5 LDA GRACZ
-         ASL A
+         ASL
          TAY 
          CLC 
          LDA KASAZN,Y
@@ -497,7 +497,7 @@ PROPSELL6 LDA ZN+4
          LDA ZN
          STA KSTAB,X
          TXA 
-         ASL A
+         ASL
          TAX 
          CLC 
          LDA WOJZN,Y
@@ -532,9 +532,9 @@ WOJDIV   LDY #0
          STY ZN
 WOJDIV1  LDA BUFFER,Y
          BMI WOJDIV2
-         ASL A
-         ASL A
-         ASL A
+         ASL
+         ASL
+         ASL
          TAX 
          TYA 
          PHA 
@@ -567,7 +567,7 @@ WOJDIV6  INY
 WOJDIV2  LDA ZN
          BEQ WOJDIV9
          LDA GRACZ
-         ASL A
+         ASL
          TAX 
          LDY #0
          STY ZN+1
@@ -597,7 +597,7 @@ WOJDIV8  LDA BUFFER,Y
          STY ZN+3
          AND #31
          STA BUFFER,Y
-         ASL A
+         ASL
          TAY 
          LDA ZN+1
          STA WOJKSTAB,Y
@@ -612,14 +612,14 @@ WOJDIV9  RTS
 WOJARM   LDY #0
 WOJARM1  LDA BUFFER,Y
          BMI WOJARM2
-         ASL A
+         ASL
          TAX 
          LDA WOJKSTAB+1,X
-         LSR A
+         LSR
          STA WOJKSTAB+1,X
          STA ZN+1
          LDA WOJKSTAB,X
-         ROR A
+         ROR
          STA WOJKSTAB,X
          STA ZN
          BCC WOJARM3
@@ -627,7 +627,7 @@ WOJARM1  LDA BUFFER,Y
          BNE WOJARM3
          INC ZN+1
 WOJARM3  LDA GRACZ
-         ASL A
+         ASL
          TAX 
          CLC 
          LDA ZN
@@ -678,17 +678,17 @@ CHKODC7  CMP BUFFER,X
          DEX 
          BPL CHKODC7
          STA ZN+1
-         ASL A
-         ASL A
-         ASL A
+         ASL
+         ASL
+         ASL
          TAY 
          LDA #8
          STA ZN+2
 CHKODC14 LDA NEARTAB,Y
          BMI CHKODC8
-         ASL A
-         ASL A
-         ASL A
+         ASL
+         ASL
+         ASL
          TAX 
          LDA #8
          STA ZN+3
@@ -708,9 +708,9 @@ CHKODC12 CMP BUFFER,X
          BPL CHKODC12
          BMI CHKODC10
 CHKODC11 LDA ZN+4
-         LSR A
-         LSR A
-         LSR A
+         LSR
+         LSR
+         LSR
          TAY 
          LDX ZN+5
          LDA #255
@@ -734,9 +734,9 @@ PREPAT   LDY #0
          STY ZN+9
 PREPAT1  LDA BUFFER,Y
          BMI PREPAT2
-         ASL A
-         ASL A
-         ASL A
+         ASL
+         ASL
+         ASL
          TAX 
          TYA 
          PHA 
@@ -749,8 +749,8 @@ PREPAT3  LDA NEARTAB,X
          BMI PREPAT15
          CMP GRACZ
          BEQ PREPAT15
-         ASL A
-         ASL A
+         ASL
+         ASL
          ORA GRACZ
          TAY 
          LDA SOJTAB,Y
@@ -768,8 +768,8 @@ PREPAT2  LDA ZN+5
          BNE PREPAT18
          LDA GRACZ
          TAX 
-         ASL A
-         ASL A
+         ASL
+         ASL
          TAY 
          LDA #0
          STA SOJTAB,Y
@@ -794,9 +794,9 @@ PREPAT5  LDY #0
          STY ZN+4
 PREPAT10 LDA BUFFER,Y
          BMI PREPAT11
-         ASL A
-         ASL A
-         ASL A
+         ASL
+         ASL
+         ASL
          TAX 
          TYA 
          PHA 
@@ -810,8 +810,8 @@ PREPAT12 LDA NEARTAB,X
          CMP GRACZ
          BEQ PREPAT14
          STY ZN+8
-         ASL A
-         ASL A
+         ASL
+         ASL
          ORA GRACZ
          TAY 
          LDA SOJTAB,Y
@@ -823,9 +823,9 @@ PREPAT12 LDA NEARTAB,X
          STA ZN+4
          STY ZN+5
          TXA 
-         LSR A
-         LSR A
-         LSR A
+         LSR
+         LSR
+         LSR
          STA ZN+7
          PLA 
          JMP PREPAT11
@@ -834,9 +834,9 @@ PREPAT8  CMP ZN+4
          STA ZN+4
          STY ZN+5
          TXA 
-         LSR A
-         LSR A
-         LSR A
+         LSR
+         LSR
+         LSR
          STA ZN+7
 PREPAT14 INX 
          DEC ZN+6
@@ -857,8 +857,8 @@ PREPAT16 CPY GRACZ
          LDA KSZN,Y
          BEQ PREPAT17
          TYA 
-         ASL A
-         ASL A
+         ASL
+         ASL
          ORA GRACZ
          TAX 
          LDA SOJTAB,X
@@ -906,13 +906,13 @@ PROPSOJPROC LDA ZN
          STY ZN
          STX ZN+1
          TYA 
-         ASL A
-         ASL A
+         ASL
+         ASL
          ORA ZN+1
          TAY 
          TXA 
-         ASL A
-         ASL A
+         ASL
+         ASL
          ORA ZN
          TAX 
 PROPSOJ5 LDA $D20A
@@ -936,9 +936,9 @@ CHKBUY   LDY #1
          DEY 
 CHKBUY1  LDA BUFFER,Y
          BMI CHKBUY2
-         ASL A
-         ASL A
-         ASL A
+         ASL
+         ASL
+         ASL
          TAX 
          TYA 
          PHA 
@@ -993,9 +993,9 @@ PROPBUY1 LDA KSZN,X
          LDA #0
          STA ZN+4
          LDA ZN+1
-         ASL A
-         ASL A
-         ASL A
+         ASL
+         ASL
+         ASL
          TAX 
          LDA #8
          STA ZN+5
@@ -1021,7 +1021,7 @@ PROPBUY3 LDA ZN+4
          BNE PROPBUY2
          LDY ZN+1
          LDA DOCHTAB,Y
-         ASL A
+         ASL
          STA ZN+4
 PROPBUY6 LDA $D20A
          CMP ZN+4
@@ -1038,10 +1038,10 @@ PROPBUYPROC LDX GRACZ
          LDA #0
          STA ZN+3
          TXA 
-         ASL A
+         ASL
          TAY 
          LDA ZN+1
-         ASL A
+         ASL
          TAX 
          CLC 
          LDA WOJZN,Y
@@ -1080,7 +1080,7 @@ PROPBUY10 LDA ZN+4
          LDA ZN+5
          STA KASAZN+1,Y
          LDA GRACZ
-         ASL A
+         ASL
          TAX 
          SEC 
          LDA KASAZN,X
@@ -1101,7 +1101,7 @@ BUYWOJMAX LDA #0
 BUYWOJ1  STA ZN
          STY ZN+1
          LDA GRACZ
-         ASL A
+         ASL
          TAX 
          SEC 
          LDA KASAZN,X

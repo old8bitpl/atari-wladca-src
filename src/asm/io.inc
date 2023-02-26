@@ -48,9 +48,9 @@ TRUPPICDL .BYTE 112,112,112,112,112,112,112,112,112,4+64
          .BYTE 65
          .WORD TRUPPICDL
 ;
-PRINTPLNAME ASL A
-         ASL A
-         ASL A
+PRINTPLNAME ASL
+         ASL
+         ASL
          TAX 
          LDA #5
 PRINTPLNAME1 PHA 
@@ -67,25 +67,25 @@ PRINTPLNAME1 PHA
 GETJOY   LDA $D300
          CPY #0
          BEQ GETJOY1
-         LSR A
-         LSR A
-         LSR A
-         LSR A
+         LSR
+         LSR
+         LSR
+         LSR
 GETJOY1  RTS 
 ;
 GETFIRE  LDA $D010,Y
          RTS 
 ;
 CHKPOZ   LDA POM
-         LSR A
-         LSR A
-         LSR A
+         LSR
+         LSR
+         LSR
          BCS CHKPOZ1
          LDX XCEL
          CPX XCELMIN
          BEQ CHKPOZ1
          DEC XCEL
-CHKPOZ1  LSR A
+CHKPOZ1  LSR
          BCS CHKPOZ2
          LDX XCEL
          CPX XCELMAX
@@ -94,13 +94,13 @@ CHKPOZ1  LSR A
 CHKPOZ2  RTS 
 ;
 CHKPION  LDA POM
-         LSR A
+         LSR
          BCS CHKPION1
          LDX YCEL
          CPX YCELMIN
          BEQ CHKPION1
          DEC YCEL
-CHKPION1 LSR A
+CHKPION1 LSR
          BCS CHKPION2
          LDX YCEL
          CPX YCELMAX

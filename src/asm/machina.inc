@@ -150,9 +150,9 @@ MACHINA14 JSR WAITFIRE
          LDA VZN
          RTS 
 ;
-PLMACHPOS ASL A
-         ASL A
-         ASL A
+PLMACHPOS ASL
+         ASL
+         ASL
          CLC 
          ADC # <KATANIMBUF
          STA VZN
@@ -285,9 +285,9 @@ LOTKULA4 LDA #0
          STA $D001
          RTS 
 ;
-PLMURFAZA ASL A
-         ASL A
-         ASL A
+PLMURFAZA ASL
+         ASL
+         ASL
          CLC 
          ADC # <MURANIMBUF
          STA VZN
