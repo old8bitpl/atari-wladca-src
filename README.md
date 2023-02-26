@@ -1,9 +1,13 @@
 
 ## Content (folders)
 
-### download
+### archived/atr
 
 Original content from atari disks (requires cleaning)
+
+### archived/atr.extracted
+
+Extracted files from original atari disks
 
 ### src
 
