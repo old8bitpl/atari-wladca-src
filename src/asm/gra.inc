@@ -280,10 +280,10 @@ REFRSCR1 CPX ARMPOS
          TAY 
          LDA SHIELDTAB,Y
          CLC 
-         ADC # <MAPAPIC+1024
+         ADC <MAPAPIC+1024
          STA VZN+1
          LDA SHIELDTAB+1,Y
-         ADC # >MAPAPIC+1024
+         ADC >MAPAPIC+1024
          STA VZN+2
          LDY #0
          LDA #128
@@ -298,10 +298,10 @@ REFRSCR2 LDA ARMPOS,X
          TAY 
          CLC 
          LDA SHIELDTAB,Y
-         ADC # <MAPAPIC+1024
+         ADC <MAPAPIC+1024
          STA VZN
          LDA SHIELDTAB+1,Y
-         ADC # >MAPAPIC+1024
+         ADC >MAPAPIC+1024
          STA VZN+1
          LDY #0
          LDA #208
@@ -315,10 +315,10 @@ REFRSCR3 TXA
          TAY 
          CLC 
          LDA FLAGTAB,Y
-         ADC # <MAPAPIC+1024
+         ADC <MAPAPIC+1024
          STA VZN
          LDA FLAGTAB+1,Y
-         ADC # >MAPAPIC+1024
+         ADC >MAPAPIC+1024
          STA VZN+1
          LDY #209
          LDA KSTAB,X

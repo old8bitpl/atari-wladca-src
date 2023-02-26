@@ -394,10 +394,10 @@ BITWAONOFFPROC ASL
          TAX 
          CLC 
          LDA SHIELDTAB,X
-         ADC # <MAPAPIC+1024
+         ADC <MAPAPIC+1024
          STA VZN
          LDA SHIELDTAB+1,X
-         ADC # >MAPAPIC+1024
+         ADC >MAPAPIC+1024
          STA VZN+1
          LDY #0
          RTS 

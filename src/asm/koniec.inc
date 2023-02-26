@@ -212,8 +212,8 @@ STATSCR3 LDA # <SCRPE+228
          LDX #0
          LDA ZN
          JSR CONVLONG
-         LDA # <SCRPE+306
-         LDY # >SCRPE+306
+         LDA <SCRPE+306
+         LDY >SCRPE+306
          STA VZN
          STY VZN+1
          LDY POM
@@ -221,8 +221,8 @@ STATSCR3 LDA # <SCRPE+228
          LDY #0
          LDX #0
          JSR CONVLONG
-         LDA # <SCRPE+345
-         LDY # >SCRPE+345
+         LDA <SCRPE+345
+         LDY >SCRPE+345
          STA VZN
          STY VZN+1
          LDY POM
@@ -230,8 +230,8 @@ STATSCR3 LDA # <SCRPE+228
          LDY #0
          LDX #0
          JSR CONVLONG
-         LDA # <SCRPE+424
-         LDY # >SCRPE+424
+         LDA <SCRPE+424
+         LDY >SCRPE+424
          STA VZN
          STY VZN+1
          LDY POM
@@ -239,8 +239,8 @@ STATSCR3 LDA # <SCRPE+228
          LDY #0
          LDX #0
          JSR CONVLONG
-         LDA # <SCRPE+465
-         LDY # >SCRPE+465
+         LDA <SCRPE+465
+         LDY >SCRPE+465
          STA VZN
          STY VZN+1
          LDY POM
@@ -248,8 +248,8 @@ STATSCR3 LDA # <SCRPE+228
          LDY #0
          LDX #0
          JSR CONVLONG
-         LDA # <SCRPE+622
-         LDY # >SCRPE+622
+         LDA <SCRPE+622
+         LDY >SCRPE+622
          STA VZN
          STY VZN+1
          LDY POM
@@ -257,11 +257,11 @@ STATSCR3 LDA # <SCRPE+228
          LDY #0
          LDX #0
          JSR CONVLONG
-         LDY # <SCRPE+661
-         LDX # >SCRPE+661
+         LDY <SCRPE+661
+         LDX >SCRPE+661
          JSR PRRTIMER
-         LDA # <SCRPE+767
-         LDY # >SCRPE+767
+         LDA <SCRPE+767
+         LDY >SCRPE+767
          STA VZN
          STY VZN+1
          LDA GRACZ
@@ -274,8 +274,8 @@ STATSCR3 LDA # <SCRPE+228
          LDA ZN
          LDX #0
          JSR CONVLONG
-         LDA # <SCRPE+811
-         LDY # >SCRPE+811
+         LDA <SCRPE+811
+         LDY >SCRPE+811
          STA VZN
          STY VZN+1
          LDA GRACZ
@@ -289,8 +289,8 @@ STATSCR3 LDA # <SCRPE+228
          LDX #0
          JSR CONVLONG
          JSR LICZPKT
-         LDA # <SCRPE+936
-         LDY # >SCRPE+936
+         LDA <SCRPE+936
+         LDY >SCRPE+936
          STA VZN
          STY VZN+1
          LDA ZN+2
@@ -488,12 +488,12 @@ PLTRUPPIC2 LDA TRUPPICDAT+$0100,Y
          STA SCRPE+$0100,Y
          DEY 
          BPL PLTRUPPIC2
-         LDA # <TRUPPICDAT+280
-         LDY # >TRUPPICDAT+280
+         LDA <TRUPPICDAT+280
+         LDY >TRUPPICDAT+280
          STA VZN
          STY VZN+1
-         LDA # <SCRPE+$0200+$08
-         LDY # >SCRPE+$0200+$08
+         LDA <SCRPE+$0200+$08
+         LDY >SCRPE+$0200+$08
          STA VZN+2
          STY VZN+3
          LDX #8
@@ -545,12 +545,12 @@ PLKONIECPICPROC2 DEX
          RTS 
 ;
 PLKONIECPICTAB .BYTE 112,3,64+15,1, <KONIECPIC,1, >KONIECPIC,1,15,88
-         .BYTE 64+15,1, <KONIECPIC+3560,1, >KONIECPIC+3560,1,15,101
+         .BYTE 64+15,1, <(KONIECPIC+3560),1, >(KONIECPIC+3560),1,15,101
          .BYTE 48+128,1,0,1,64+2+16,1, <INFOLINE,1, >INFOLINE,1
          .BYTE 65,1, <SCRPE,1, >SCRPE,1,255,255
 ;
-PLKONIECPIC LDA # <SCRPE
-         LDY # >SCRPE
+PLKONIECPIC LDA <SCRPE
+         LDY >SCRPE
          LDX #0
          STA VZN
          STY VZN+1
