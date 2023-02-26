@@ -1,6 +1,5 @@
-         .OPT NO LIST
 ;
-         *=  $B800
+         org $B800
 ;
 ZN       =   $C0
 ;
@@ -35,7 +34,7 @@ MOVE2    LDA #$FF
          CLI 
          RTS 
 ;
-         *=  $02E2
+         org $02E2
 ;
          .WORD MOVE
 ;
