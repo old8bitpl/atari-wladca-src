@@ -50,3 +50,4 @@ MAIN     JSR CZOLO
          org $02E0
 ;
          .WORD GO
+;

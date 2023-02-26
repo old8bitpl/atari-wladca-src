@@ -1,7 +1,7 @@
 ;
 ; MODUL: MYSL
 ;
-;
+
 RUCHGR   JSR DOCHUP
 RUCHGR14
          LDA GRACZ

@@ -1,7 +1,7 @@
 ;
 ; MODUL: LABELS
 ;
-;
+
 PMBASE   =   $00
 SCRPE    =   PMBASE+$0400
 ;

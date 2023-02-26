@@ -1,7 +1,7 @@
 ;
 ; MODUL: MACHINA
 ;
-;
+
 KULEDAT  .SB "         KULE DO KATAPULTY:             "
 ;
 MACHINA  LDA ZN

@@ -1,7 +1,7 @@
 ;
 ; MODUL: IO
 ;
-;
+
 DL       .BYTE 112,96,2+64+128
          .WORD TIMELINE
          .BYTE 0,4+64
