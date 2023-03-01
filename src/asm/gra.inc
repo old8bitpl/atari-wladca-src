@@ -409,20 +409,20 @@ PLOTMAN1 LDA (ZN),Y
 PLOTMAN2 RTS 
 ;
 DATADAT  .SB "   RUCH MA:        ROK:     ,           "
-ZLOTODATADAT .SB "     : Z^OTO:      ROK:     ,           "
+ZLOTODATADAT .SB "     : Z", $3E, "OTO:      ROK:     ,           "
 ;
-MIESDAT  .SB "STYCZE_         "
+MIESDAT  .SB "STYCZE", $3F, "         "
          .SB "LUTY            "
          .SB "MARZEC          "
-         .SB "KWIECIE_        "
+         .SB "KWIECIE", $3F, "        "
          .SB "MAJ             "
          .SB "CZERWIEC        "
          .SB "LIPIEC          "
-         .SB "SIERPIE_        "
-         .SB "WRZESIE_        "
-         .SB "PADZIERNIK     "
+         .SB "SIERPIE", $3F, "        "
+         .SB "WRZESIE", $3F, "        "
+         .SB "PA", $43, "DZIERNIK     "
          .SB "LISTOPAD        "
-         .SB "GRUDZIE_        "
+         .SB "GRUDZIE", $3F, "        "
 ;
 TIMEUPPROC LDA HUMANPL,X
          TAY 
@@ -642,9 +642,9 @@ MUSICPLAY4 STA $D200,Y
          BPL MUSICPLAY4
 MUSICPLAY5 RTS 
 ;
-SELMANTXT1 .SB "       GRACZ 1 - WYBIERZ POSTA\:        "
-SELMANTXT2 .SB "           WPISZ SWOJE IMI]:            "
-SELMANTXT3 .SB "      TA POSTA\ JEST JU WYBRANA!       "
+SELMANTXT1 .SB "       GRACZ 1 - WYBIERZ POSTA", $3C, ":        "
+SELMANTXT2 .SB "           WPISZ SWOJE IMI", $3D, ":            "
+SELMANTXT3 .SB "      TA POSTA", $3C, " JEST JU", $42, " WYBRANA!       "
 ;
 SELMAN   LDY #31
 SELMAN1  LDA NAMPLDAT,Y
@@ -758,7 +758,9 @@ KEYTAB1  .BYTE $3F,$15,$12,$3A,$2A,$38,$3D,$39,$0D,$01,$05,$00,$25,$23,$08,$0A,$
          .BYTE $0B,$10,$2E,$16,$2B,$17
          .BYTE $BF,$92,$AA,$80,$A3,$88,$BE,$97,$96,$34,$0C
 ;
-KEYTAB2  .SB "ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_ þÿ"
+KEYTAB2  .SB "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+		 .SB $3B, $3C, $3D, $3E, $3F, $40, $41, $42, $43
+		 .SB $FE, $FF
 ;
 GETNAME  PHA 
 GETNAME4 LDA # <SELMANTXT2

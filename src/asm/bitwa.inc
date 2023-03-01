@@ -11,9 +11,21 @@ BITWA    STY ZN      ; <- TEREN BITWY
          JMP BITWAPROC
 ;
 BITWATXT1 .SB "          :                 :           "
-BITWATXT2 .SB "        �����ˠ� OBRONA  ODWR T         "
-BITWATXT3 .SB "          ATAK  ��������                "
-BITWATXT4 .SB "        �������� ODWR T                 "
+BITWATXT2 .SB "        "
+		  .SB " "+$80, " "+$80, "A"+$80, "T"+$80, "A"+$80, "K"+$80, " "+$80, " "+$80
+		  .SB " OBRONA "
+		  .SB " ODWR", $40, "T "
+		  .SB "        "
+BITWATXT3 .SB "        "
+		  .SB "  ATAK  "
+		  .SB " "+$80, "O"+$80, "B"+$80, "R"+$80, "O"+$80, "N"+$80, "A"+$80, " "+$80
+		  .SB "        "
+		  .SB "        "
+BITWATXT4 .SB "        "
+		  .SB " "+$80, "W"+$80, "A"+$80, "L"+$80, "K"+$80, "A"+$80, " "+$80, " "+$80
+		  .SB " ODWR", $40, "T "
+		  .SB "        "
+		  .SB "        "
          ;   
 CHKBITWA LDY #0
          LDA GRACZ
