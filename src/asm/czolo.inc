@@ -153,7 +153,7 @@ CZOLOTEXT .BYTE $FE,10,0
 		 .SB " "+$80, "W"+$80, " "+$80, $3E+$80
 		 .SB " "+$80, "A"+$80, " "+$80, "D"+$80
 		 .SB " "+$80, "C"+$80, " "+$80, "A"+$80
-		 .SB " "+$80
+		 .SB " "+$80, "."
          .SB $FE,48,0
          .SB "PRACE NAD NI", $3B," ZOSTA", $3E, "Y UKO", $3F, "CZONE W SIERPNIU 1993 ROKU."
          .SB $FE,48,0

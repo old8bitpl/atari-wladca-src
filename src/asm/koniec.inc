@@ -98,19 +98,19 @@ PRSTATSCRPROC1 RTS
 STATSCRDAT .BYTE $FE,14
          .SB "- STATYSTYKA GRY"
          .BYTE $FE,50
-         .SB "ILO\:"
+         .SB "ILO", $41, $3C, ":"
          .BYTE $FE,82
-         .SB "NAJ]TYCH O^NIERZY:"
+         .SB "NAJ", $3D, "TYCH ", $42, "O", $3E, "NIERZY:"
          .BYTE $FE,21
-         .SB "ZABITYCH O^NIERZY:"
+         .SB "ZABITYCH ", $42, "O", $3E, "NIERZY:"
          .BYTE $FE,61
          .SB "STOCZONYCH BITEW:"
          .BYTE $FE,23
          .SB "WYGRANYCH BITEW:"
          .BYTE $FE,64
-         .SB "OBL]E_ ZAMK W:"
+         .SB "OBL", $3D, $42, "E", $3F, " ZAMK", $40, "W:"
          .BYTE $FE,25
-         .SB "UDANYCH OBL]E_:"
+         .SB "UDANYCH OBL", $3D, $42, "E", $3F, ":"
          .BYTE $FE,56
          .SB "CZAS GRY:"
          .BYTE $FE,79
@@ -122,9 +122,9 @@ STATSCRDAT .BYTE $FE,14
          .BYTE $FE,100
          .SB "Z^OTO:"
          .BYTE $FE,34
-         .SB "O^NIERZE:"
+         .SB $42, "O", $3E, "NIERZE:"
          .BYTE $FE,110
-         .SB "LICZBA PUNKT W:"
+         .SB "LICZBA PUNKT", $40, "W:"
          .BYTE $FE,25
          .BYTE $FF
 ;
@@ -647,17 +647,25 @@ WINGAMEDLI LDA #$01
 KONIECTEXT .BYTE $FE,10,0
          .SB "GRATULACJE!!!"
          .BYTE $FE,10,0
-         .SB "ZJEDNOCZY^E ROZBITE KR LESTWO!"
+         .SB "ZJEDNOCZY", $3E, "E", $41, " ROZBITE KR", $40, "LESTWO!"
          .BYTE $FE,10,0
-         .SB "ZOSTA^E  W ^ A D C [ !!!"
+         .SB "ZOSTA", $3E, "E", $41, "  W ", $3E, " A D C ", $3B, " !!!"
          .BYTE $FE,20,0
-         .SB "MOESZ TERAZ POZOSTA\ W WIECIE, W KT RYM WYNIESIONO CI] NA TRON LUB PR BOWA\ POWR CI\ DO "
-         .SB "SWOJEGO CZASU W GRZE: �נޠ��Ġà�����"
+         .SB "MO", $42, "ESZ TERAZ POZOSTA", $3C, " W ", $41, "WIECIE, W KT", $40, "RYM WYNIESIONO CI", $3D, " NA TRON"
+		 .SB " LUB PR", $40, "BOWA", $3C, " POWR", $40, "CI", $3C, " DO "
+         .SB "SWOJEGO CZASU W GRZE: "
+		 .SB " "+$80, "W"+$80, " "+$80, $3E+$80, " "+$80, "A"+$80, " "+$80, "D"+$80
+		 .SB " "+$80, "C"+$80, " "+$80, "A"+$80, " "+$80, " "+$80, "2"+$80, " "+$80
          .BYTE $FE,48,0
-         .SB "LECZ WCZENIEJ POSZUKAJ W SKLEPIE NASZEJ NAST]PNEJ GRY: �РɠҠ��àɠ"
-         .SB " (JU WKR TCE)"
+         .SB "LECZ WCZE", $41, "NIEJ POSZUKAJ W SKLEPIE NASZEJ NAST", $3D, "PNEJ GRY: "
+		 .SB " "+$80, "P"+$80, " "+$80, "I"+$80, " "+$80, "R"+$80, " "+$80, "A"+$80
+		 .SB " "+$80, "C"+$80, " "+$80, "I"+$80, " "+$80
+         .SB " (JU", $42, " WKR", $40, "TCE)"
          .BYTE $FE,48,0
-         .SB "POWR T DO GRY: �����,������,������."
+         .SB "POWR", $40, "T DO GRY: "
+		 .SB "S"+$80, "T"+$80, "A"+$80, "R"+$80, "T"+$80, ","
+		 .SB "S"+$80, "E"+$80, "L"+$80, "E"+$80, "C"+$80, "T"+$80, ","
+		 .SB "O"+$80, "P"+$80, "T"+$80, "I"+$80, "O"+$80, "N"+$80, "."
          .BYTE $FE,100,0
          .BYTE $FF
 ;
