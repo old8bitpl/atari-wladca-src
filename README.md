@@ -17,6 +17,7 @@ Extracted files from original atari disks
 
 MAC/65 sources (the actual code)
 main game file: MAIN.M65 (includes other INC files. Checkout should be on H1:)
+(ASM,,#H1:MAIN.OBJ to compile)
 
 ### src
 
@@ -25,7 +26,7 @@ Folder with categorized files
 #### src/asm
 
 Mads sources (the actual code), converted and adapted from MAC/65 sources
-main game file: main.asm (includes other inc files)
+main game file: main.asm (includes other inc files) (mads -lpt main to compile)
 Mads: https://github.com/tebe6502/Mad-Assembler and https://mads.atari8.info/
 
 #### src/graph
