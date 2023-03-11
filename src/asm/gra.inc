@@ -15,9 +15,9 @@ ANIMPROC INC ANIMPAUZA
          ASL
          ASL
          CLC 
-         ADC # <ANIMBUF
+         ADC # <MAPANIMDAT
          STA IZN
-         LDA # >ANIMBUF
+         LDA # >MAPANIMDAT
          ADC #0
          STA IZN+1
          LDA #9
