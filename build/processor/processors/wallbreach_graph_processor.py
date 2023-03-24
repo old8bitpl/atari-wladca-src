@@ -3,7 +3,7 @@
 from processor.core import BuildOutput, SrcFileProcessor
 
 
-class KoniecGraphProcessor(SrcFileProcessor):
+class WallBreachGraphProcessor(SrcFileProcessor):
 
     def __init__(self, filename, offset):
         super().__init__(filename, offset)
@@ -11,8 +11,8 @@ class KoniecGraphProcessor(SrcFileProcessor):
     def process(self, output: BuildOutput):
         input_data = super().process(output)
 
-        # Koniec pic extract (load 191 lines, then skip last one)
-        fr = 0
-        to = fr + 191 * 40
+        # breach (27 chars (from 101) * 12 anim phases * 8 bytes/per phase)
+        fr = 2048 + 5 + 21 * 12 * 8
+        to = fr + 27 * 12 * 8
         data = input_data[fr: to]
         output.put(self.offset, data)

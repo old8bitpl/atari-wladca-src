@@ -1,10 +1,13 @@
 #!/usr/bin/python3
 
-from processor.core import BuildOutput, GmSrcFileProcessor
-from processor.processors.zamek1_graph_processor import Zamek1GraphProcessor
+from processor.core import BuildOutput, GmSrcFileProcessor, DataSrcFileProcessor, BinSrcFileProcessor
 from processor.processors.mirage_graph_processor import MirageGraphProcessor
-from processor.processors.koniec_graph_processor import KoniecGraphProcessor
-from processor.mem_map import MIRAGEPIC, CZOLOPIC, BITWAPIC, ZAMEK1PIC, ZAMEK2PIC, SPISEKPIC, WINTURNIEJPIC, KONIECPIC
+from processor.processors.gameover_win_graph_processor import GameOverWinGraphProcessor
+from processor.processors.catapult_graph_processor import CatapultGraphProcessor
+from processor.processors.wallbreach_graph_processor import WallBreachGraphProcessor
+from processor.processors.scream_sound_processor import ScreamSoundProcessor
+from processor.mem_map import MIRAGEPIC, CZOLOPIC, MAPAPIC, BITWAPIC, ZAMEK1PIC, ZAMEK2PIC, SPISEKPIC, \
+    WINTURNIEJPIC, KONIECPIC, CHARGEN, KATANIMBUF, MURANIMBUF, KRZYKDAT
 
 
 def main():
@@ -13,41 +16,56 @@ def main():
     # mirage pic
     MirageGraphProcessor('../src/graph/mirage.pic', MIRAGEPIC).process(output)
 
-    # czolo pic
+    # start pic
     GmSrcFileProcessor('../src/graph/czolo.gm', CZOLOPIC).process(output)
 
-    # mapa pic
-    # TODO
+    # map pic
+    GmSrcFileProcessor('../src/graph/mapa.gm2', MAPAPIC).process(output)
 
-    # bitwa pic
+    # battle pic
     GmSrcFileProcessor('../src/graph/bitwa.gm', BITWAPIC).process(output)
 
     # sojpic/manbuf
     # TODO
 
-    # zamek 1 pic + katapulta + wyrwa w murze
-    Zamek1GraphProcessor('../src/graph/zamek1.gm2', ZAMEK1PIC).process(output)
+    # castle 1 pic
+    GmSrcFileProcessor('../src/graph/zamek1.gm2', ZAMEK1PIC).process(output)
 
-    # zamek 2 pic
+    # castle 2 pic
     GmSrcFileProcessor('../src/graph/zamek2.gm2', ZAMEK2PIC).process(output)
 
-    # spisek pic
+    # conspiracy pic
     GmSrcFileProcessor('../src/graph/spisek.gm', SPISEKPIC).process(output)
 
-    # tarcza pic
+    # shield pic
     # TODO
 
-    # win turniej pic
+    # win tournament pic
     GmSrcFileProcessor('../src/graph/tarczwin.gm', WINTURNIEJPIC).process(output)
 
-    # muzyka dat
+    # music dat
+    BinSrcFileProcessor('../src/music/wladca.cmc').process(output)
+
+    # game over death pic
     # TODO
 
-    # trup pic
-    # TODO
+    # game over win pic
+    GameOverWinGraphProcessor('../src/graph/koniec.scr', KONIECPIC).process(output)
 
-    # koniec pic
-    KoniecGraphProcessor('../src/graph/koniec.scr', KONIECPIC).process(output)
+    # char generator
+    DataSrcFileProcessor('../src/graph/chargen.dat', CHARGEN).process(output)
+
+    # catapult anim
+    CatapultGraphProcessor('../src/graph/zamek1.gm2', KATANIMBUF).process(output)
+
+    # wall breach anim
+    WallBreachGraphProcessor('../src/graph/zamek1.gm2', MURANIMBUF).process(output)
+
+    # scream sound data
+    ScreamSoundProcessor('../src/sound/krzyk.dat', KRZYKDAT).process(output)
+
+    # game code
+    BinSrcFileProcessor('../src/asm/main.obx').process(output)
 
     output.export()
 
