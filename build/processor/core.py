@@ -12,8 +12,38 @@ class BuildOutput:
         self.buf[offset] = byte
 
     def export(self):
-        with open("export.dat", "wb") as file:
+        with open("build.dat", "wb") as file:
             file.write(self.buf)
+
+
+class BinOutput:
+    def __init__(self, build_output: BuildOutput, moverom):
+        self.bin_buf = self._build(build_output.buf, moverom)
+
+    def export(self):
+        with open("bin.dat", "wb") as file:
+            file.write(bytearray(self.bin_buf))
+
+    @staticmethod
+    def _build(build_output, moverom):
+
+        # mem to copy under ROM: 0xc000..0xcfff + 0xd800..0xffff
+        bin_buf = [0xff, 0xff, 0x00, 0x80, 0xff, 0xb7]
+        bin_buf.extend(build_output[0xc000: 0xd000])
+        bin_buf.extend(build_output[0xd800:])
+
+        # add moverom (incl. 0x2e2..0x2e3, w/o header 0xff, 0xff)
+        bin_buf.extend(moverom)
+
+        # mem: 0x0900..0xbfff
+        bin_buf.extend([0x00, 0x09, 0xff, 0xbf])
+        bin_buf.extend(build_output[0x0900: 0xc000])
+
+        # run
+        bin_buf.extend([0xe0, 0x02, 0xe1, 0x02])
+        bin_buf.extend(build_output[0x2e0: 0x2e2])
+
+        return bin_buf
 
 
 class SrcFileProcessor:
@@ -22,7 +52,7 @@ class SrcFileProcessor:
         self.filename = filename
         self.offset = offset
 
-    def process(self, output):
+    def process(self, output: BuildOutput):
         return load_binary_file(self.filename)
 
 

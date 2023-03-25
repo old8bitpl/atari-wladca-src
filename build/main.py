@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 
-from processor.core import BuildOutput, GmSrcFileProcessor, DataSrcFileProcessor, BinSrcFileProcessor
+from processor.core import BuildOutput, BinOutput, GmSrcFileProcessor, DataSrcFileProcessor, BinSrcFileProcessor, \
+    SrcFileProcessor
 from processor.processors.mirage_graph_processor import MirageGraphProcessor
 from processor.processors.gameover_win_graph_processor import GameOverWinGraphProcessor
 from processor.processors.catapult_graph_processor import CatapultGraphProcessor
@@ -46,6 +47,9 @@ def main():
     # music dat
     BinSrcFileProcessor('../src/music/wladca.cmc').process(output)
 
+    # music player
+    BinSrcFileProcessor('../src/music/wladca.rep').process(output)
+
     # game over death pic
     # TODO
 
@@ -67,7 +71,13 @@ def main():
     # game code
     BinSrcFileProcessor('../src/asm/main.obx').process(output)
 
+    # moverom code
+    moverom_code = (SrcFileProcessor('../src/asm/moverom.obx', None).process(None))[2:]
+
     output.export()
+
+    bin_output = BinOutput(output, moverom_code)
+    bin_output.export()
 
 
 if __name__ == "__main__":
