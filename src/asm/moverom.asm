@@ -16,6 +16,8 @@ MOVE     LDY #$00
          STA ZN+3
 MOVE1    LDA (ZN),Y
          STA (ZN+2),Y
+		 LDA #$00
+		 STA (ZN),Y
          INY 
          BNE MOVE1
          INC ZN+1

@@ -125,8 +125,8 @@ RTIMEROBS INC RTIMER
          BNE RTIMEROBS1
          LDA #0
          STA RTIMER+3
-RTIMEROBS1 LDY # <TIMELINE+2
-         LDX # >TIMELINE+2
+RTIMEROBS1 LDY # <(TIMELINE+2)
+         LDX # >(TIMELINE+2)
 PRRTIMER LDA VZN
          PHA 
          LDA VZN+1
@@ -409,20 +409,20 @@ PLOTMAN1 LDA (ZN),Y
 PLOTMAN2 RTS 
 ;
 DATADAT  .SB "   RUCH MA:        ROK:     ,           "
-ZLOTODATADAT .SB "     : Z", $3E, "OTO:      ROK:     ,           "
+ZLOTODATADAT .SB "     : Z", $5E, "OTO:      ROK:     ,           "
 ;
-MIESDAT  .SB "STYCZE", $3F, "         "
+MIESDAT  .SB "STYCZE", $5F, "         "
          .SB "LUTY            "
          .SB "MARZEC          "
-         .SB "KWIECIE", $3F, "        "
+         .SB "KWIECIE", $5F, "        "
          .SB "MAJ             "
          .SB "CZERWIEC        "
          .SB "LIPIEC          "
-         .SB "SIERPIE", $3F, "        "
-         .SB "WRZESIE", $3F, "        "
-         .SB "PA", $43, "DZIERNIK     "
+         .SB "SIERPIE", $5F, "        "
+         .SB "WRZESIE", $5F, "        "
+         .SB "PA", $03, "DZIERNIK     "
          .SB "LISTOPAD        "
-         .SB "GRUDZIE", $3F, "        "
+         .SB "GRUDZIE", $5F, "        "
 ;
 TIMEUPPROC LDA HUMANPL,X
          TAY 
@@ -642,9 +642,9 @@ MUSICPLAY4 STA $D200,Y
          BPL MUSICPLAY4
 MUSICPLAY5 RTS 
 ;
-SELMANTXT1 .SB "       GRACZ 1 - WYBIERZ POSTA", $3C, ":        "
-SELMANTXT2 .SB "           WPISZ SWOJE IMI", $3D, ":            "
-SELMANTXT3 .SB "      TA POSTA", $3C, " JEST JU", $42, " WYBRANA!       "
+SELMANTXT1 .SB "       GRACZ 1 - WYBIERZ POSTA", $5C, ":        "
+SELMANTXT2 .SB "           WPISZ SWOJE IMI", $5D, ":            "
+SELMANTXT3 .SB "      TA POSTA", $5C, " JEST JU", $02, " WYBRANA!       "
 ;
 SELMAN   LDY #31
 SELMAN1  LDA NAMPLDAT,Y
@@ -759,7 +759,7 @@ KEYTAB1  .BYTE $3F,$15,$12,$3A,$2A,$38,$3D,$39,$0D,$01,$05,$00,$25,$23,$08,$0A,$
          .BYTE $BF,$92,$AA,$80,$A3,$88,$BE,$97,$96,$34,$0C
 ;
 KEYTAB2  .SB "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-		 .SB $3B, $3C, $3D, $3E, $3F, $40, $41, $42, $43
+		 .SB $5B, $5C, $5D, $5E, $5F, $00, $01, $02, $03
 		 .SB $FE, $FF
 ;
 GETNAME  PHA 
