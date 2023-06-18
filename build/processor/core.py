@@ -11,21 +11,24 @@ class BuildOutput:
     def put_byte(self, offset, byte):
         self.buf[offset] = byte
 
-    def export(self):
-        with open("build.dat", "wb") as file:
+    def get_byte(self, offset):
+        return self.buf[offset: offset + 1]
+
+    def export(self, filename):
+        with open(filename, "wb") as file:
             file.write(self.buf)
 
 
 class BinOutput:
-    def __init__(self, build_output: BuildOutput, moverom):
-        self.bin_buf = self._build(build_output.buf, moverom)
+    def __init__(self, build_output: BuildOutput, moverom, movepage6to9):
+        self.bin_buf = self._build(build_output.buf, moverom, movepage6to9)
 
-    def export(self):
-        with open("bin.dat", "wb") as file:
+    def export(self, filename):
+        with open(filename, "wb") as file:
             file.write(bytearray(self.bin_buf))
 
     @staticmethod
-    def _build(build_output, moverom):
+    def _build(build_output, moverom, movepage6to9):
 
         # mem to copy under ROM: 0xc000..0xcfff + 0xd800..0xffff
         bin_buf = [0xff, 0xff, 0x00, 0x80, 0xff, 0xb7]
@@ -36,8 +39,19 @@ class BinOutput:
         bin_buf.extend(moverom)
 
         # mem: 0x0900..0xbfff
-        bin_buf.extend([0x00, 0x09, 0xff, 0xbf])
-        bin_buf.extend(build_output[0x0900: 0xc000])
+        # $bin_buf.extend([0x00, 0x09, 0xff, 0xbf])
+        # bin_buf.extend(build_output[0x0900: 0xc000])
+
+        # mem: 0x0a00..0xbfff
+        bin_buf.extend([0x00, 0x0a, 0xff, 0xbf])
+        bin_buf.extend(build_output[0x0a00: 0xc000])
+
+        # mem: 0x0900..0x09ff
+        bin_buf.extend([0x00, 0x06, 0xff, 0x06])
+        bin_buf.extend(build_output[0x0900: 0x0a00])
+
+        # add movepage6to9 (incl. 0x2e2..0x2e3, w/o header 0xff, 0xff)
+        bin_buf.extend(movepage6to9)
 
         # run
         bin_buf.extend([0xe0, 0x02, 0xe1, 0x02])

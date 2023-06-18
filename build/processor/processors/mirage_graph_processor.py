@@ -12,7 +12,7 @@ class MirageGraphProcessor(SrcFileProcessor):
         input_data = super().process(output)
 
         # Mirage pic extract (skip first 8 lines, then load 24 lines)
-        fr = 8 * 40
+        fr = 7 * 40
         to = fr + 24 * 40
         data = input_data[fr: to]
         output.put(self.offset, data)
