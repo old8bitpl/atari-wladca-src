@@ -6,37 +6,37 @@ MENUDAT	 .BYTE $58, $59, $5A, $5B, $5C, $5D, $5E, $5F
 		 .BYTE $60, $61, $62, $63, $64, $65, $66, $67, $68, $69, $6A, $6B, $6C, $6D, $6E, $6F
 		 .BYTE $70, $71, $72, $73, $74, $75, $76, $77, $78, $79, $7A, $7B, $7C, $7D, $7E, $7F
 
-BUYTXT   .SB "      KT", $40, "RE KSI", $3D, "STWO CHCESZ KUPI", $3C, "?      "
+BUYTXT   .SB "      KT", $00, "RE KSI", $5D, "STWO CHCESZ KUPI", $5C, "?      "
 BUYTXT2  .SB "     ILE DAJESZ ZA           :          "
-BUYTXT3  .SB "                 NALE", $42, "Y DO CIEBIE!      "
+BUYTXT3  .SB "                 NALE", $02, "Y DO CIEBIE!      "
 SOJTXT3
-BUYTXT4  .SB "          ODRZUCI", $3E, " TWOJ", $3B, " PROPOZYCJ", $3D, "     "
-BUYTXT5  .SB "         TEGO NIE DA SI", $3D, " KUPI", $3C, "!         "
-SELLTXT  .SB "    KT", $40, "RE KSI", $3D, "STWO CHCESZ SPRZEDA", $3C, "?     "
-SELLTXT2 .SB "     ILE ", $42, $3B, "DASZ ZA           :          "
-SELLTXT3 .SB "   WSZYSCY ODRZUCILI TWOJ", $3B, " PROPOZYCJ", $3D, "   "
-SELLTXT4 .SB "          KUPI", $3E, " OD CIEBIE               "
-SELLTXT5 .SB "       TEGO NIE DA SI", $3D, " SPRZEDA", $3C, "!        "
-SOJTXT   .SB "      Z KIM CHCESZ ZAWRZE", $3C, " SOJUSZ?      "
-SOJTXT2  .SB "     : KSI",$3D, "STW:     DOCH", $40, "D:             "
-SOJTXT4  .SB "             ZAWAR", $3E, " Z TOB", $3B, " SOJUSZ       "
-SOJTXT5  .SB "CHCESZ SOBIE SAMEMU ZAPROPONOWA", $3C, " SOJUSZ?"
-SOJTXT6  .SB "         JU", $42, " JEST TWOIM SOJUSZNIKIEM    "
-WOJTXT   .SB "   ILE CHCESZ ZACI", $3B, "GN", $3B, $3C, " WOJSKA:         "
+BUYTXT4  .SB "          ODRZUCI", $5E, " TWOJ", $5B, " PROPOZYCJ", $5D, "     "
+BUYTXT5  .SB "         TEGO NIE DA SI", $5D, " KUPI", $5C, "!         "
+SELLTXT  .SB "    KT", $00, "RE KSI", $5D, "STWO CHCESZ SPRZEDA", $5C, "?     "
+SELLTXT2 .SB "     ILE ", $02, $5B, "DASZ ZA           :          "
+SELLTXT3 .SB "   WSZYSCY ODRZUCILI TWOJ", $5B, " PROPOZYCJ", $5D, "   "
+SELLTXT4 .SB "          KUPI", $5E, " OD CIEBIE               "
+SELLTXT5 .SB "       TEGO NIE DA SI", $5D, " SPRZEDA", $5C, "!        "
+SOJTXT   .SB "      Z KIM CHCESZ ZAWRZE", $5C, " SOJUSZ?      "
+SOJTXT2  .SB "     : KSI",$5D, "STW:     DOCH", $00, "D:             "
+SOJTXT4  .SB "             ZAWAR", $5E, " Z TOB", $5B, " SOJUSZ       "
+SOJTXT5  .SB "CHCESZ SOBIE SAMEMU ZAPROPONOWA", $5C, " SOJUSZ?"
+SOJTXT6  .SB "         JU", $02, " JEST TWOIM SOJUSZNIKIEM    "
+WOJTXT   .SB "   ILE CHCESZ ZACI", $5B, "GN", $5B, $5C, " WOJSKA:         "
 ARMTXT   .SB "     TWIERDZA:         ARMIA:           "
 ALIENARMTXT .SB "        ARMIA NA OBCYM TERENIE!         "
-GOTXT    .SB "  DO KT", $40, "REGO KSI", $3D, "STWA CHCESZ WKROCZY", $3C, "?  "
-GOTXT2   .SB "    TO NIE JEST S", $3B, "SIEDNIE KSI", $3D, "STWO!     "
-GOTXT3   .SB " CZY CHCESZ PRZEMASZEROWA", $3C, "?  ZGODA NIE  "
+GOTXT    .SB "  DO KT", $00, "REGO KSI", $5D, "STWA CHCESZ WKROCZY", $5C, "?  "
+GOTXT2   .SB "    TO NIE JEST S", $5B, "SIEDNIE KSI", $5D, "STWO!     "
+GOTXT3   .SB " CZY CHCESZ PRZEMASZEROWA", $5C, "?  ZGODA NIE  "
 GOTXT4   .SB "              BRAK ARMII!               "
 PROPBUYTXT .SB "      DAJE ZA                 ZGODA NIE "
 PROPSELLTXT .SB "      CHCE ZA                 ZGODA NIE "
 PROPSOJTXT .SB "      PROPONUJE CI SOJUSZ     ZGODA NIE "
 PROPOPTNAMETXT .SB "                      :                 "
-PLUNDERTXT .SB "   KT", $40, "RE KSI", $3D, "STWO CHCESZ SPL", $3B, "DROWA", $3C, "?    "
-PLUNDERTXT2 .SB "      TEGO SI", $3D, " NIE DA SPL", $3B, "DROWA", $3C, "!       "
-PLUNDERTXT3 .SB "           ZDOBYTE Z", $3E, "OTO:               "
-NOANTYTXT .SB "  PRZECIE", $42, " NIE MASZ JU", $42, " PRZECIWNIK", $40, "W!   "
+PLUNDERTXT .SB "   KT", $00, "RE KSI", $5D, "STWO CHCESZ SPL", $5B, "DROWA", $5C, "?    "
+PLUNDERTXT2 .SB "      TEGO SI", $5D, " NIE DA SPL", $5B, "DROWA", $5C, "!       "
+PLUNDERTXT3 .SB "           ZDOBYTE Z", $5E, "OTO:               "
+NOANTYTXT .SB "  PRZECIE", $02, " NIE MASZ JU", $02, " PRZECIWNIK", $00, "W!   "
 ;
 MENUOBS  LDY #0
          STY POM+1
@@ -673,7 +673,7 @@ DKURDAT  .BYTE $00,$18,$18,$18,$7E,$3C,$18,$00
 ;
 XKURSOJOPTTAB .BYTE 82,82+28,82+28*2,82+28*3
 ;
-WRALSOJTXT .SB "WR", $40, "G  "
+WRALSOJTXT .SB "WR", $00, "G  "
 		   .SB "ALIANT",
 		   .SB "T"+$80, "Y"+$80, "    "
 		   .SB "MARTWY"
@@ -1486,9 +1486,9 @@ SPISEK3  LDA GRACZ
          JSR REFRSCR
 SPISEK1  RTS 
 ;
-SPISEK1TXT .SB "   UTRACI", $3E, "E", $41, " PO", $3E, "OW", $3D, " POSIADANEGO Z", $3E, "OTA   "
-SPISEK2TXT .SB " UTRACI", $3E, "E", $41, " PO", $3E, "OW", $3D, " MIESI", $3D, "CZNEGO DOCHODU  "
-SPISEK3TXT .SB "     UTRACI", $3E, "E", $41, " KSI", $3D, "STWO                 "
+SPISEK1TXT .SB "   UTRACI", $5E, "E", $01, " PO", $5E, "OW", $5D, " POSIADANEGO Z", $5E, "OTA   "
+SPISEK2TXT .SB " UTRACI", $5E, "E", $01, " PO", $5E, "OW", $5D, " MIESI", $5D, "CZNEGO DOCHODU  "
+SPISEK3TXT .SB "     UTRACI", $5E, "E", $01, " KSI", $5D, "STWO                 "
 ;
 PLUNDEROPT JSR WHEREARM
          BEQ PLUNDEROPT9
@@ -1582,15 +1582,15 @@ PLUNDEROPT3 LDY POM+2
          JMP MENUOBS
 ;
 OPTTXT
-         .SB "   KUPNO KSI", $3D, "STWA   "
-         .SB " SPRZEDA", $42, " KSI", $3D, "STWA  "
+         .SB "   KUPNO KSI", $5D, "STWA   "
+         .SB " SPRZEDA", $02, " KSI", $5D, "STWA  "
          .SB "  ZAWARCIE SOJUSZU  "
-         .SB "   ZACI", $3B, "G WOJSKA    "
+         .SB "   ZACI", $5B, "G WOJSKA    "
          .SB "  TWORZENIE ARMII   "
          .SB "     RUCH ARMII     "
-         .SB "PL", $3B, "DROWANIE KSI", $3D, "STWA"
-         .SB "  TURNIEJ ", $3E, "UCZNICZY "
-         .SB "  NAST", $3D, "PNY MIESI", $3B, "C  "
+         .SB "PL", $5B, "DROWANIE KSI", $5D, "STWA"
+         .SB "  TURNIEJ ", $5E, "UCZNICZY "
+         .SB "  NAST", $5D, "PNY MIESI", $5B, "C  "
          .SB "     KONIEC GRY     "
          .SB "                    "
 ;

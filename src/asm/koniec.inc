@@ -98,19 +98,19 @@ PRSTATSCRPROC1 RTS
 STATSCRDAT .BYTE $FE,14
          .SB "- STATYSTYKA GRY"
          .BYTE $FE,50
-         .SB "ILO", $41, $3C, ":"
+         .SB "ILO", $01, $5C, ":"
          .BYTE $FE,82
-         .SB "NAJ", $3D, "TYCH ", $42, "O", $3E, "NIERZY:"
+         .SB "NAJ", $5D, "TYCH ", $02, "O", $5E, "NIERZY:"
          .BYTE $FE,21
-         .SB "ZABITYCH ", $42, "O", $3E, "NIERZY:"
+         .SB "ZABITYCH ", $02, "O", $5E, "NIERZY:"
          .BYTE $FE,61
          .SB "STOCZONYCH BITEW:"
          .BYTE $FE,23
          .SB "WYGRANYCH BITEW:"
          .BYTE $FE,64
-         .SB "OBL", $3D, $42, "E", $3F, " ZAMK", $40, "W:"
+         .SB "OBL", $5D, $02, "E", $5F, " ZAMK", $00, "W:"
          .BYTE $FE,25
-         .SB "UDANYCH OBL", $3D, $42, "E", $3F, ":"
+         .SB "UDANYCH OBL", $5D, $02, "E", $5F, ":"
          .BYTE $FE,56
          .SB "CZAS GRY:"
          .BYTE $FE,79
@@ -122,9 +122,9 @@ STATSCRDAT .BYTE $FE,14
          .BYTE $FE,100
          .SB "Z^OTO:"
          .BYTE $FE,34
-         .SB $42, "O", $3E, "NIERZE:"
+         .SB $02, "O", $5E, "NIERZE:"
          .BYTE $FE,110
-         .SB "LICZBA PUNKT", $40, "W:"
+         .SB "LICZBA PUNKT", $00, "W:"
          .BYTE $FE,25
          .BYTE $FF
 ;
@@ -169,8 +169,8 @@ STATSCR2 LDA NAMPLTAB,Y
          INX 
          CPX #5
          BNE STATSCR2
-         LDA # <SCRPE+188
-         LDY # >SCRPE+188
+         LDA # <(SCRPE+188)
+         LDY # >(SCRPE+188)
          STA VZN
          STY VZN+1
          LDA POM
@@ -192,8 +192,8 @@ STATSCR2 LDA NAMPLTAB,Y
          TXA 
          JSR CRBUF
          JSR WOJKUPA
-STATSCR3 LDA # <SCRPE+228
-         LDY # >SCRPE+228
+STATSCR3 LDA # <(SCRPE+228)
+         LDY # >(SCRPE+228)
          STA VZN
          STY VZN+1
          LDA POM
@@ -212,8 +212,8 @@ STATSCR3 LDA # <SCRPE+228
          LDX #0
          LDA ZN
          JSR CONVLONG
-         LDA <SCRPE+306
-         LDY >SCRPE+306
+         LDA <(SCRPE+306)
+         LDY >(SCRPE+306)
          STA VZN
          STY VZN+1
          LDY POM
@@ -221,8 +221,8 @@ STATSCR3 LDA # <SCRPE+228
          LDY #0
          LDX #0
          JSR CONVLONG
-         LDA <SCRPE+345
-         LDY >SCRPE+345
+         LDA <(SCRPE+345)
+         LDY >(SCRPE+345)
          STA VZN
          STY VZN+1
          LDY POM
@@ -230,8 +230,8 @@ STATSCR3 LDA # <SCRPE+228
          LDY #0
          LDX #0
          JSR CONVLONG
-         LDA <SCRPE+424
-         LDY >SCRPE+424
+         LDA <(SCRPE+424)
+         LDY >(SCRPE+424)
          STA VZN
          STY VZN+1
          LDY POM
@@ -239,8 +239,8 @@ STATSCR3 LDA # <SCRPE+228
          LDY #0
          LDX #0
          JSR CONVLONG
-         LDA <SCRPE+465
-         LDY >SCRPE+465
+         LDA <(SCRPE+465)
+         LDY >(SCRPE+465)
          STA VZN
          STY VZN+1
          LDY POM
@@ -248,8 +248,8 @@ STATSCR3 LDA # <SCRPE+228
          LDY #0
          LDX #0
          JSR CONVLONG
-         LDA <SCRPE+622
-         LDY >SCRPE+622
+         LDA <(SCRPE+622)
+         LDY >(SCRPE+622)
          STA VZN
          STY VZN+1
          LDY POM
@@ -257,11 +257,11 @@ STATSCR3 LDA # <SCRPE+228
          LDY #0
          LDX #0
          JSR CONVLONG
-         LDY <SCRPE+661
-         LDX >SCRPE+661
+         LDY <(SCRPE+661)
+         LDX >(SCRPE+661)
          JSR PRRTIMER
-         LDA <SCRPE+767
-         LDY >SCRPE+767
+         LDA <(SCRPE+767)
+         LDY >(SCRPE+767)
          STA VZN
          STY VZN+1
          LDA GRACZ
@@ -274,8 +274,8 @@ STATSCR3 LDA # <SCRPE+228
          LDA ZN
          LDX #0
          JSR CONVLONG
-         LDA <SCRPE+811
-         LDY >SCRPE+811
+         LDA <(SCRPE+811)
+         LDY >(SCRPE+811)
          STA VZN
          STY VZN+1
          LDA GRACZ
@@ -289,8 +289,8 @@ STATSCR3 LDA # <SCRPE+228
          LDX #0
          JSR CONVLONG
          JSR LICZPKT
-         LDA <SCRPE+936
-         LDY >SCRPE+936
+         LDA <(SCRPE+936)
+         LDY >(SCRPE+936)
          STA VZN
          STY VZN+1
          LDA ZN+2
@@ -647,22 +647,22 @@ WINGAMEDLI LDA #$01
 KONIECTEXT .BYTE $FE,10,0
          .SB "GRATULACJE!!!"
          .BYTE $FE,10,0
-         .SB "ZJEDNOCZY", $3E, "E", $41, " ROZBITE KR", $40, "LESTWO!"
+         .SB "ZJEDNOCZY", $5E, "E", $01, " ROZBITE KR", $00, "LESTWO!"
          .BYTE $FE,10,0
-         .SB "ZOSTA", $3E, "E", $41, "  W ", $3E, " A D C ", $3B, " !!!"
+         .SB "ZOSTA", $5E, "E", $01, "  W ", $5E, " A D C ", $5b, " !!!"
          .BYTE $FE,20,0
-         .SB "MO", $42, "ESZ TERAZ POZOSTA", $3C, " W ", $41, "WIECIE, W KT", $40, "RYM WYNIESIONO CI", $3D, " NA TRON"
-		 .SB " LUB PR", $40, "BOWA", $3C, " POWR", $40, "CI", $3C, " DO "
+         .SB "MO", $02, "ESZ TERAZ POZOSTA", $5C, " W ", $01, "WIECIE, W KT", $00, "RYM WYNIESIONO CI", $5D, " NA TRON"
+		 .SB " LUB PR", $00, "BOWA", $5C, " POWR", $00, "CI", $5C, " DO "
          .SB "SWOJEGO CZASU W GRZE: "
-		 .SB " "+$80, "W"+$80, " "+$80, $3E+$80, " "+$80, "A"+$80, " "+$80, "D"+$80
+		 .SB " "+$80, "W"+$80, " "+$80, $5E+$80, " "+$80, "A"+$80, " "+$80, "D"+$80
 		 .SB " "+$80, "C"+$80, " "+$80, "A"+$80, " "+$80, " "+$80, "2"+$80, " "+$80
          .BYTE $FE,48,0
-         .SB "LECZ WCZE", $41, "NIEJ POSZUKAJ W SKLEPIE NASZEJ NAST", $3D, "PNEJ GRY: "
+         .SB "LECZ WCZE", $01, "NIEJ POSZUKAJ W SKLEPIE NASZEJ NAST", $5D, "PNEJ GRY: "
 		 .SB " "+$80, "P"+$80, " "+$80, "I"+$80, " "+$80, "R"+$80, " "+$80, "A"+$80
 		 .SB " "+$80, "C"+$80, " "+$80, "I"+$80, " "+$80
-         .SB " (JU", $42, " WKR", $40, "TCE)"
+         .SB " (JU", $02, " WKR", $00, "TCE)"
          .BYTE $FE,48,0
-         .SB "POWR", $40, "T DO GRY: "
+         .SB "POWR", $00, "T DO GRY: "
 		 .SB "S"+$80, "T"+$80, "A"+$80, "R"+$80, "T"+$80, ","
 		 .SB "S"+$80, "E"+$80, "L"+$80, "E"+$80, "C"+$80, "T"+$80, ","
 		 .SB "O"+$80, "P"+$80, "T"+$80, "I"+$80, "O"+$80, "N"+$80, "."

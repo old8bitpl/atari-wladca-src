@@ -28,6 +28,18 @@
          ICL 'koniec.inc'
 ;
 
+; PL CHARS (for .SB):
+; char .BYTE	.SB
+; A		$3B		$5B
+; C		$3C		$5C
+; E		$3D		$5D
+; L		$3E		$5E
+; N		$3F		$5F
+; O		$40		$00
+; S		$41		$01
+; Z		$42		$02
+; X		$43		$03
+
 GO       LDX #$FF
          TXS 
          LDA #$00

@@ -149,29 +149,29 @@ TEXTZNUP1 RTS
 ;
 CZOLOTEXT .BYTE $FE,10,0
          .SB "LABORATORIUM KOMPUTEROWE APM  ORAZ  MIRAGE SOFTWARE LTD.  "
-         .SB "MAJ", $3B, " PRZYJEMNO", $41, $3C," ZAPREZENTOWA", $3C, " NOW", $3B, " GR", $3D, ": "
-		 .SB " "+$80, "W"+$80, " "+$80, $3E+$80
+         .SB "MAJ", $5B, " PRZYJEMNO", $01, $5C," ZAPREZENTOWA", $5C, " NOW", $5B, " GR", $5D, ": "
+		 .SB " "+$80, "W"+$80, " "+$80, $5E+$80
 		 .SB " "+$80, "A"+$80, " "+$80, "D"+$80
 		 .SB " "+$80, "C"+$80, " "+$80, "A"+$80
 		 .SB " "+$80, "."
-         .SB $FE,48,0
-         .SB "PRACE NAD NI", $3B," ZOSTA", $3E, "Y UKO", $3F, "CZONE W SIERPNIU 1993 ROKU."
-         .SB $FE,48,0
+         .BYTE $FE,48,0
+         .SB "PRACE NAD NI", $5B," ZOSTA", $5E, "Y UKO", $5F, "CZONE W SIERPNIU 1993 ROKU."
+         .BYTE $FE,48,0
          .SB "AUTORZY:"
-         .SB $FE,20,0
-         .SB "MUZYKA,GRAFIKA: TOMASZ ", $3E, "USZCZ"
+         .BYTE $FE,20,0
+         .SB "MUZYKA,GRAFIKA: TOMASZ ", $5E, "USZCZ"
          .BYTE $FE,20,0
          .SB "PROGRAMOWANIE: ARTUR MIARECKI"
          .BYTE $FE,48,0
-         .SB "CZYTAJ CZASOPISMA, PO", $41,"WI", $3D, "CONE MA", $3E, "EMU ATARI (WG KOLEJNO", $41, "CI ALFABETYCZNEJ):"
+         .SB "CZYTAJ CZASOPISMA, PO", $01,"WI", $5D, "CONE MA", $5E, "EMU ATARI (WG KOLEJNO", $01, "CI ALFABETYCZNEJ):"
          .BYTE $FE,20,0
          .SB "ATARI MAGAZYN"
          .BYTE $FE,20,0
-         .SB $41, "WIAT ATARI"
+         .SB $01, "WIAT ATARI"
          .BYTE $FE,20,0
          .SB "TAJEMNICE ATARI."
          .BYTE $FE,48,0
-         .SB "WARTO CZYTA", $3C, " TE", $42, " I INNE PISMA, NIE TYLKO DLA ATAROWC", $40, "W:"
+         .SB "WARTO CZYTA", $5C, " TE", $02, " I INNE PISMA, NIE TYLKO DLA ATAROWC", $00, "W:"
          .BYTE $FE,20,0
          .SB "BAJTEK"
          .BYTE $FE,20,0

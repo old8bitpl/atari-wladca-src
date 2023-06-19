@@ -19,6 +19,10 @@ MAC/65 sources (the actual code)
 main game file: MAIN.M65 (includes other INC files. Checkout should be on H1:)
 (ASM,,#H1:MAIN.OBJ to compile)
 
+#### archived/com
+original WLADCA.COM game file
+
+
 ### src
 
 Folder with categorized files
@@ -53,6 +57,16 @@ as to MAC/65 - please download it from: https://atariwiki.org/wiki/Wiki.jsp?page
 #### src/tbd
 
 others files to be processed
+
+
+### build
+
+Build tools. Use: "python3 main.py" to build (requires compiling sources from src/asm).
+Generates files:
+- o_wladca.dat - data dump file generated from original data files (RAM.COM, ROM.COM) and sources from src/asm
+- o_wladca.com - game com file file generated from original data files (RAM.COM, ROM.COM) and sources from src/asm
+- wladca.dat - data dump file generated from processed data files (graph, music, sound) and sources from src/asm
+- wladca.com - game com file file generated from processed data files (graph, music, sound) and sources from src/asm
 
 
 ## Contact
