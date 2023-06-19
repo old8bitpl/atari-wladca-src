@@ -108,17 +108,19 @@ def main():
     ##### main generating artifacts
     output.export("wladca.dat")
 
-    bin_output = BinOutput(output, moverom_code, movepage6to9_code)
+    bin_output = BinOutput(orig_output, moverom_code, movepage6to9_code)
     bin_output.export("wladca.com")
 
 
 
     ##### generating orig/main diff
-    for i in range(0x900, 0x10000):
-        orig_byte = orig_output.get_byte(i).hex()
-        new_byte = output.get_byte(i).hex()
-        if orig_byte != new_byte:
-            print(hex(i), orig_byte, new_byte)
+    with open("diff.log", 'w') as fh:
+        for i in range(0x900, 0x10000):
+            orig_byte = orig_output.get_byte(i).hex()
+            new_byte = output.get_byte(i).hex()
+            if orig_byte != new_byte:
+                fh.write("{}\t{}\t{}\n".format(hex(i), orig_byte, new_byte))
+
 
 
 if __name__ == "__main__":
