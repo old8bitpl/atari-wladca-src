@@ -108,7 +108,7 @@ def main():
     ##### main generating artifacts
     output.export("wladca.dat")
 
-    bin_output = BinOutput(orig_output, moverom_code, movepage6to9_code)
+    bin_output = BinOutput(output, moverom_code, movepage6to9_code)
     bin_output.export("wladca.com")
 
 

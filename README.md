@@ -56,7 +56,7 @@ as to MAC/65 - please download it from: https://atariwiki.org/wiki/Wiki.jsp?page
 
 #### src/tbd
 
-others files to be processed
+other files to process
 
 
 ### build
@@ -68,7 +68,16 @@ Generates files:
 - wladca.dat - data dump file generated from processed data files (graph, music, sound) and sources from src/asm
 - wladca.com - game com file file generated from processed data files (graph, music, sound) and sources from src/asm
 
+Running generated game file (example):
+- download emulator (e.g. Atari 800XLWin Plus 4.1 from: https://emutopia.com/index.php/emulators/item/320-atari-400-800-xl-xe/1180-atari800win-plus)
+- boot emulator with dos.atr 
+- map D1 to build.atr
+- map H1 to build folder
+- copy (C) game file from H1 to D1 (e.g. Datei kopieren: H1:WLADCA.COM,WLADCA.COM)
+- boot emulator with build.atr
+- run game file
+
+
 
 ## Contact
 email: old8bitpl@gmail.com
-
