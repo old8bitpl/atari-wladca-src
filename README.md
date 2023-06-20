@@ -78,6 +78,16 @@ Running generated game file (example):
 - run game file
 
 
+### dist
+
+#### dist/orig
+
+generated o_wladca.com and o_wladca.atr
+
+#### dist/new
+
+generated wladca.com and wladca.atr
+
 
 ## Contact
 email: old8bitpl@gmail.com
