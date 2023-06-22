@@ -2,13 +2,14 @@
 
 from processor.core import BuildOutput, BinOutput, GmSrcFileProcessor, DataSrcFileProcessor, BinSrcFileProcessor, \
     SrcFileProcessor
+from processor.processors.alliance_graph_processor import AllianceGraphProcessor
 from processor.processors.mirage_graph_processor import MirageGraphProcessor
 from processor.processors.gameover_win_graph_processor import GameOverWinGraphProcessor
 from processor.processors.catapult_graph_processor import CatapultGraphProcessor
 from processor.processors.wallbreach_graph_processor import WallBreachGraphProcessor
 from processor.processors.scream_sound_processor import ScreamSoundProcessor
 from processor.mem_map import MIRAGEPIC, CZOLOPIC, MAPAPIC, BITWAPIC, ZAMEK1PIC, ZAMEK2PIC, SPISEKPIC, \
-    WINTURNIEJPIC, KONIECPIC, CHARGEN, KATANIMBUF, MURANIMBUF, KRZYKDAT
+    WINTURNIEJPIC, KONIECPIC, CHARGEN, KATANIMBUF, MURANIMBUF, KRZYKDAT, SOJPIC
 
 
 def main():
@@ -46,7 +47,7 @@ def main():
     GmSrcFileProcessor('../src/graph/bitwa.gm', BITWAPIC).process(output)
 
     # sojpic/manbuf
-    # TODO
+    AllianceGraphProcessor('../src/graph/rycerze.gm', SOJPIC).process(output)
 
     # castle 1 pic
     GmSrcFileProcessor('../src/graph/zamek1.gm2', ZAMEK1PIC).process(output)
