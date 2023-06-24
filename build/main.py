@@ -6,10 +6,11 @@ from processor.processors.alliance_graph_processor import AllianceGraphProcessor
 from processor.processors.mirage_graph_processor import MirageGraphProcessor
 from processor.processors.gameover_win_graph_processor import GameOverWinGraphProcessor
 from processor.processors.catapult_graph_processor import CatapultGraphProcessor
+from processor.processors.tournament_graphs_processor import TournamentGraphsProcessor
 from processor.processors.wallbreach_graph_processor import WallBreachGraphProcessor
 from processor.processors.scream_sound_processor import ScreamSoundProcessor
 from processor.mem_map import MIRAGEPIC, CZOLOPIC, MAPAPIC, BITWAPIC, ZAMEK1PIC, ZAMEK2PIC, SPISEKPIC, \
-    WINTURNIEJPIC, KONIECPIC, CHARGEN, KATANIMBUF, MURANIMBUF, KRZYKDAT, SOJPIC
+    WINTURNIEJPIC, KONIECPIC, CHARGEN, KATANIMBUF, MURANIMBUF, KRZYKDAT, SOJPIC, TARCZAPIC, TARCZAFAZATAB, FLAGAFAZATAB
 
 
 def main():
@@ -59,7 +60,8 @@ def main():
     GmSrcFileProcessor('../src/graph/spisek.gm', SPISEKPIC).process(output)
 
     # shield pic
-    # TODO
+    TournamentGraphsProcessor('../src/graph/tarcza1.gm2', '../src/graph/tarcza2.gm', '../src/graph/tarcza3.gm',
+                              TARCZAPIC, TARCZAFAZATAB, FLAGAFAZATAB).process(output)
 
     # win tournament pic
     GmSrcFileProcessor('../src/graph/tarczwin.gm', WINTURNIEJPIC).process(output)
