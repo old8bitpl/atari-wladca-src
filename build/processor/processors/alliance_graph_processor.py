@@ -40,5 +40,3 @@ class AllianceGraphProcessor(SrcFileProcessor):
 
         data = new_chargen + new_picture + new_colours
         output.put(self.offset, data)
-
-        return input_data

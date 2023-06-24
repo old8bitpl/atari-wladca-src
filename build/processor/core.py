@@ -38,10 +38,6 @@ class BinOutput:
         # add moverom (incl. 0x2e2..0x2e3, w/o header 0xff, 0xff)
         bin_buf.extend(moverom)
 
-        # mem: 0x0900..0xbfff
-        # $bin_buf.extend([0x00, 0x09, 0xff, 0xbf])
-        # bin_buf.extend(build_output[0x0900: 0xc000])
-
         # mem: 0x0a00..0xbfff
         bin_buf.extend([0x00, 0x0a, 0xff, 0xbf])
         bin_buf.extend(build_output[0x0a00: 0xc000])
@@ -140,15 +136,19 @@ class GmSrcFileProcessor(SrcFileProcessor):
     def __init__(self, filename, offset):
         super().__init__(filename, offset)
 
-    def process(self, output):
-        input_data = super().process(output)
-
+    @staticmethod
+    def fill_data(input_data, output, offset):
         # picture data
         chargen = input_data[0: 1024]
         picture = input_data[1024: 2048-5]
         colours = input_data[2048: 2048+5]
         data = chargen + picture + colours
-        output.put(self.offset, data)
+        output.put(offset, data)
+
+    def process(self, output):
+        input_data = super().process(output)
+
+        GmSrcFileProcessor.fill_data(input_data, output, self.offset)
 
         return input_data
 
