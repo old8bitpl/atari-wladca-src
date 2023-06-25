@@ -156,3 +156,8 @@ class GmSrcFileProcessor(SrcFileProcessor):
 def load_binary_file(filename: str, file_length=65536):
     with open(filename, mode="rb") as file:
         return file.read(file_length)
+
+
+def load_text_file(filename: str):
+    with open(filename, mode="rb") as file:
+        return [line.rstrip() for line in file]

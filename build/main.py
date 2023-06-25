@@ -6,11 +6,13 @@ from processor.processors.alliance_graph_processor import AllianceGraphProcessor
 from processor.processors.mirage_graph_processor import MirageGraphProcessor
 from processor.processors.gameover_win_graph_processor import GameOverWinGraphProcessor
 from processor.processors.catapult_graph_processor import CatapultGraphProcessor
+from processor.processors.player_names_processor import PlayerNamesProcessor
 from processor.processors.tournament_graphs_processor import TournamentGraphsProcessor
 from processor.processors.wallbreach_graph_processor import WallBreachGraphProcessor
 from processor.processors.scream_sound_processor import ScreamSoundProcessor
 from processor.mem_map import MIRAGEPIC, CZOLOPIC, MAPAPIC, BITWAPIC, ZAMEK1PIC, ZAMEK2PIC, SPISEKPIC, \
-    WINTURNIEJPIC, KONIECPIC, CHARGEN, KATANIMBUF, MURANIMBUF, KRZYKDAT, SOJPIC, TARCZAPIC, TARCZAFAZATAB, FLAGAFAZATAB
+    WINTURNIEJPIC, KONIECPIC, CHARGEN, KATANIMBUF, MURANIMBUF, KRZYKDAT, SOJPIC, TARCZAPIC, TARCZAFAZATAB, FLAGAFAZATAB, \
+    NAMPLDAT
 
 
 def main():
@@ -89,6 +91,9 @@ def main():
 
     # scream sound data
     ScreamSoundProcessor('../src/sound/krzyk.dat', KRZYKDAT).process(output)
+
+    # player names
+    PlayerNamesProcessor('../src/other/players.txt', NAMPLDAT).process(output)
 
     # game code
     BinSrcFileProcessor('../src/asm/main.obx').process(output)
