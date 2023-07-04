@@ -33,6 +33,10 @@ Mads sources (the actual code), converted and adapted from MAC/65 sources
 main game file: main.asm (includes other inc files) (mads -lpt main to compile)
 Mads: https://github.com/tebe6502/Mad-Assembler and https://mads.atari8.info/
 
+#### src/data
+
+data in txt format (players and countries)
+
 #### src/graph
 
 graphs in GM and GM2 format (GM25.COM)
@@ -45,19 +49,14 @@ music in CMC format (Chaos Music Composer)
 
 digitalized sounds
 
-#### src/build
+#### src/tbd
 
-built data (without code)
+other files to process (not yet used)
 
 #### src/tool
 
 util programs
 as to MAC/65 - please download it from: https://atariwiki.org/wiki/Wiki.jsp?page=Mac65
-
-#### src/tbd
-
-other files to process
-
 
 ### build
 
