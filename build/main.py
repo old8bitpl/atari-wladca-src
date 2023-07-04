@@ -3,6 +3,7 @@
 from processor.core import BuildOutput, BinOutput, GmSrcFileProcessor, DataSrcFileProcessor, BinSrcFileProcessor, \
     SrcFileProcessor
 from processor.processors.alliance_graph_processor import AllianceGraphProcessor
+from processor.processors.battle_graph_processor import BattleGraphProcessor
 from processor.processors.catapult_ball_trajectories_processor import CatapultBallTrajectoriesProcessor
 from processor.processors.country_names_processor import CountryNamesProcessor
 from processor.processors.mirage_graph_processor import MirageGraphProcessor
@@ -50,7 +51,7 @@ def main():
     GmSrcFileProcessor('../src/graph/mapa.gm2', MAPAPIC).process(output)
 
     # battle pic
-    GmSrcFileProcessor('../src/graph/bitwa.gm', BITWAPIC).process(output)
+    BattleGraphProcessor('../src/graph/bitwa.gm', BITWAPIC).process(output)
 
     # sojpic/manbuf
     AllianceGraphProcessor('../src/graph/rycerze.gm', SOJPIC).process(output)
