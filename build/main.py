@@ -3,6 +3,7 @@
 from processor.core import BuildOutput, BinOutput, GmSrcFileProcessor, DataSrcFileProcessor, BinSrcFileProcessor, \
     SrcFileProcessor
 from processor.processors.alliance_graph_processor import AllianceGraphProcessor
+from processor.processors.catapult_ball_trajectories_processor import CatapultBallTrajectoriesProcessor
 from processor.processors.country_names_processor import CountryNamesProcessor
 from processor.processors.mirage_graph_processor import MirageGraphProcessor
 from processor.processors.gameover_win_graph_processor import GameOverWinGraphProcessor
@@ -13,7 +14,7 @@ from processor.processors.wallbreach_graph_processor import WallBreachGraphProce
 from processor.processors.scream_sound_processor import ScreamSoundProcessor
 from processor.mem_map import MIRAGEPIC, CZOLOPIC, MAPAPIC, BITWAPIC, ZAMEK1PIC, ZAMEK2PIC, SPISEKPIC, \
     WINTURNIEJPIC, KONIECPIC, CHARGEN, KATANIMBUF, MURANIMBUF, KRZYKDAT, SOJPIC, TARCZAPIC, TARCZAFAZATAB, FLAGAFAZATAB, \
-    NAMPLDAT, NAMKSTAB, DOCHTAB, SHIELDTAB, FLAGTAB, NEARTAB, TERTAB
+    NAMPLDAT, NAMKSTAB, DOCHTAB, SHIELDTAB, FLAGTAB, NEARTAB, TERTAB, LOTDAT
 from processor.utils import to_hex2, to_hex4
 
 
@@ -100,6 +101,9 @@ def main():
     # country names
     CountryNamesProcessor(
         '../src/data/countries.txt', NAMKSTAB, DOCHTAB, SHIELDTAB, FLAGTAB, NEARTAB, TERTAB).process(output)
+
+    # catapult ball trajectories
+    CatapultBallTrajectoriesProcessor('../src/data/catapult_ball_trajectories.txt', LOTDAT).process(output)
 
     # game code
     BinSrcFileProcessor('../src/asm/main.obx').process(output)
