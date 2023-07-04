@@ -14,8 +14,8 @@ class BattleGraphProcessor(GmSrcFileProcessor):
         # move image 2 lines up = drop first 2 lines, add 2 empty lines at the end
         for line in range(23):
             for i in range(40):
-                sadr = self.offset + 1024 + 2 * 40 + 40 * line + i
-                dadr = self.offset + 1024 + 40 * line + i
+                sadr = self.offset + 1024 + 2 * 40 + line * 40 + i
+                dadr = self.offset + 1024 + line * 40 + i
                 d = output.get_byte(sadr)
                 output.put_byte(dadr, d)
 
