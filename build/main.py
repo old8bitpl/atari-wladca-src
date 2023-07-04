@@ -3,6 +3,7 @@
 from processor.core import BuildOutput, BinOutput, GmSrcFileProcessor, DataSrcFileProcessor, BinSrcFileProcessor, \
     SrcFileProcessor
 from processor.processors.alliance_graph_processor import AllianceGraphProcessor
+from processor.processors.country_names_processor import CountryNamesProcessor
 from processor.processors.mirage_graph_processor import MirageGraphProcessor
 from processor.processors.gameover_win_graph_processor import GameOverWinGraphProcessor
 from processor.processors.catapult_graph_processor import CatapultGraphProcessor
@@ -12,7 +13,8 @@ from processor.processors.wallbreach_graph_processor import WallBreachGraphProce
 from processor.processors.scream_sound_processor import ScreamSoundProcessor
 from processor.mem_map import MIRAGEPIC, CZOLOPIC, MAPAPIC, BITWAPIC, ZAMEK1PIC, ZAMEK2PIC, SPISEKPIC, \
     WINTURNIEJPIC, KONIECPIC, CHARGEN, KATANIMBUF, MURANIMBUF, KRZYKDAT, SOJPIC, TARCZAPIC, TARCZAFAZATAB, FLAGAFAZATAB, \
-    NAMPLDAT
+    NAMPLDAT, NAMKSTAB, DOCHTAB, SHIELDTAB, FLAGTAB, NEARTAB, TERTAB
+from processor.utils import to_hex2, to_hex4
 
 
 def main():
@@ -93,7 +95,11 @@ def main():
     ScreamSoundProcessor('../src/sound/krzyk.dat', KRZYKDAT).process(output)
 
     # player names
-    PlayerNamesProcessor('../src/other/players.txt', NAMPLDAT).process(output)
+    PlayerNamesProcessor('../src/data/players.txt', NAMPLDAT).process(output)
+
+    # country names
+    CountryNamesProcessor(
+        '../src/data/countries.txt', NAMKSTAB, DOCHTAB, SHIELDTAB, FLAGTAB, NEARTAB, TERTAB).process(output)
 
     # game code
     BinSrcFileProcessor('../src/asm/main.obx').process(output)
@@ -124,10 +130,10 @@ def main():
     ##### generating orig/main diff
     with open("diff.log", 'w') as fh:
         for i in range(0x900, 0x10000):
-            orig_byte = orig_output.get_byte(i).hex()
-            new_byte = output.get_byte(i).hex()
+            orig_byte = orig_output.get_byte(i)
+            new_byte = output.get_byte(i)
             if orig_byte != new_byte:
-                fh.write("{}\t{}\t{}\n".format(hex(i), orig_byte, new_byte))
+                fh.write("{}\t{}\t{}\n".format(to_hex4(i), to_hex2(orig_byte), to_hex2(new_byte)))
 
 
 
