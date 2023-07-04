@@ -12,7 +12,7 @@ class BuildOutput:
         self.buf[offset] = byte
 
     def get_byte(self, offset):
-        return self.buf[offset: offset + 1]
+        return self.buf[offset]
 
     def export(self, filename):
         with open(filename, "wb") as file:
@@ -159,5 +159,5 @@ def load_binary_file(filename: str, file_length=65536):
 
 
 def load_text_file(filename: str):
-    with open(filename, mode="rb") as file:
+    with open(filename, mode="rt") as file:
         return [line.rstrip() for line in file]
