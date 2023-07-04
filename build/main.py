@@ -2,7 +2,6 @@
 
 from processor.core import BuildOutput, BinOutput, GmSrcFileProcessor, DataSrcFileProcessor, BinSrcFileProcessor, \
     SrcFileProcessor
-from processor.processors.alliance_graph_processor import AllianceGraphProcessor
 from processor.processors.battle_graph_processor import BattleGraphProcessor
 from processor.processors.catapult_ball_trajectories_processor import CatapultBallTrajectoriesProcessor
 from processor.processors.country_names_processor import CountryNamesProcessor
@@ -54,7 +53,7 @@ def main():
     BattleGraphProcessor('../src/graph/bitwa.gm', BITWAPIC).process(output)
 
     # sojpic/manbuf
-    AllianceGraphProcessor('../src/graph/rycerze.gm', SOJPIC).process(output)
+    GmSrcFileProcessor('../src/graph/sojpic.gm', SOJPIC).process(output)
 
     # castle 1 pic
     GmSrcFileProcessor('../src/graph/zamek1.gm2', ZAMEK1PIC).process(output)
