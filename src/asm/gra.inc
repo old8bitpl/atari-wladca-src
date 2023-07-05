@@ -495,7 +495,7 @@ CHKBUNT  LDY #0
          BNE CHKBUNT1
          INY 
 CHKBUNT3 LDA NMCY,Y
-         CMP #96     ; 6 LAT
+         CMP #96     ; 8 LAT
          BEQ CHKBUNT2
          CMP #60     ; 5 LAT
          BCC CHKBUNT1

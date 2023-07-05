@@ -5,6 +5,7 @@ from processor.core import BuildOutput, BinOutput, GmSrcFileProcessor, DataSrcFi
 from processor.processors.battle_graph_processor import BattleGraphProcessor
 from processor.processors.catapult_ball_trajectories_processor import CatapultBallTrajectoriesProcessor
 from processor.processors.country_names_processor import CountryNamesProcessor
+from processor.processors.death_graph_processor import DeathGraphProcessor
 from processor.processors.map_graph_processor import MapGraphProcessor
 from processor.processors.mirage_graph_processor import MirageGraphProcessor
 from processor.processors.gameover_win_graph_processor import GameOverWinGraphProcessor
@@ -15,7 +16,7 @@ from processor.processors.wallbreach_graph_processor import WallBreachGraphProce
 from processor.processors.scream_sound_processor import ScreamSoundProcessor
 from processor.mem_map import MIRAGEPIC, CZOLOPIC, MAPAPIC, BITWAPIC, ZAMEK1PIC, ZAMEK2PIC, SPISEKPIC, \
     WINTURNIEJPIC, KONIECPIC, CHARGEN, KATANIMBUF, MURANIMBUF, KRZYKDAT, SOJPIC, TARCZAPIC, TARCZAFAZATAB, FLAGAFAZATAB, \
-    NAMPLDAT, NAMKSTAB, DOCHTAB, SHIELDTAB, FLAGTAB, NEARTAB, TERTAB, LOTDAT, MAPANIMDAT
+    NAMPLDAT, NAMKSTAB, DOCHTAB, SHIELDTAB, FLAGTAB, NEARTAB, TERTAB, LOTDAT, MAPANIMDAT, TRUPPICDAT
 from processor.utils import to_hex2, to_hex4
 
 
@@ -79,7 +80,7 @@ def main():
     BinSrcFileProcessor('../src/music/wladca.rep').process(output)
 
     # game over death pic
-    # TODO
+    DeathGraphProcessor('../src/graph/trup.gm', TRUPPICDAT).process(output)
 
     # game over win pic
     GameOverWinGraphProcessor('../src/graph/koniec.scr', KONIECPIC).process(output)
