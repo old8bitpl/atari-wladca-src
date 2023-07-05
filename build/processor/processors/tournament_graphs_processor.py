@@ -19,10 +19,12 @@ class TournamentGraphsProcessor:
         # tournament pic + chargen
         shield_input1_orig = SrcFileProcessor(self.shield_filename1, None).process(None)
         shield_input1 = [d for d in shield_input1_orig]
-        # clean zoom window
+        # fill zoom window
+        c = 0x3e
         for y in range(4):
             for x in range(4):
-                shield_input1[1024 + 41 + 40 * y + x] = 0
+                shield_input1[1024 + 41 + 40 * y + x] = c
+                c += 1
         GmSrcFileProcessor.fill_data(shield_input1, output, self.shield_offset)
 
         # shield phases
@@ -35,7 +37,7 @@ class TournamentGraphsProcessor:
         TournamentGraphsProcessor.fill_shield_data(shield_input3, output, self.shield_phases_offset + 0x100)
 
         # flag phases
-        for phase in range(12):
+        for phase in range(10):
             for char in range(2):
                 for i in range(8):
                     src_i = 0x805 + 46 * 12 * 8 + 96 * char + 8 * phase + i
