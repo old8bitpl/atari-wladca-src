@@ -5,6 +5,7 @@ from processor.core import BuildOutput, BinOutput, GmSrcFileProcessor, DataSrcFi
 from processor.processors.battle_graph_processor import BattleGraphProcessor
 from processor.processors.catapult_ball_trajectories_processor import CatapultBallTrajectoriesProcessor
 from processor.processors.country_names_processor import CountryNamesProcessor
+from processor.processors.map_graph_processor import MapGraphProcessor
 from processor.processors.mirage_graph_processor import MirageGraphProcessor
 from processor.processors.gameover_win_graph_processor import GameOverWinGraphProcessor
 from processor.processors.catapult_graph_processor import CatapultGraphProcessor
@@ -14,7 +15,7 @@ from processor.processors.wallbreach_graph_processor import WallBreachGraphProce
 from processor.processors.scream_sound_processor import ScreamSoundProcessor
 from processor.mem_map import MIRAGEPIC, CZOLOPIC, MAPAPIC, BITWAPIC, ZAMEK1PIC, ZAMEK2PIC, SPISEKPIC, \
     WINTURNIEJPIC, KONIECPIC, CHARGEN, KATANIMBUF, MURANIMBUF, KRZYKDAT, SOJPIC, TARCZAPIC, TARCZAFAZATAB, FLAGAFAZATAB, \
-    NAMPLDAT, NAMKSTAB, DOCHTAB, SHIELDTAB, FLAGTAB, NEARTAB, TERTAB, LOTDAT
+    NAMPLDAT, NAMKSTAB, DOCHTAB, SHIELDTAB, FLAGTAB, NEARTAB, TERTAB, LOTDAT, MAPANIMDAT
 from processor.utils import to_hex2, to_hex4
 
 
@@ -47,7 +48,7 @@ def main():
     GmSrcFileProcessor('../src/graph/czolo.gm', CZOLOPIC).process(output)
 
     # map pic
-    GmSrcFileProcessor('../src/graph/mapa.gm2', MAPAPIC).process(output)
+    MapGraphProcessor('../src/graph/mapa.gm2', MAPAPIC, MAPANIMDAT).process(output)
 
     # battle pic
     BattleGraphProcessor('../src/graph/bitwa.gm', BITWAPIC).process(output)
