@@ -17,27 +17,9 @@ from processor.processors.scream_sound_processor import ScreamSoundProcessor
 from processor.mem_map import MIRAGEPIC, CZOLOPIC, MAPAPIC, BITWAPIC, ZAMEK1PIC, ZAMEK2PIC, SPISEKPIC, \
     WINTURNIEJPIC, KONIECPIC, CHARGEN, KATANIMBUF, MURANIMBUF, KRZYKDAT, SOJPIC, TARCZAPIC, TARCZAFAZATAB, FLAGAFAZATAB, \
     NAMPLDAT, NAMKSTAB, DOCHTAB, SHIELDTAB, FLAGTAB, NEARTAB, TERTAB, LOTDAT, MAPANIMDAT, TRUPPICDAT
-from processor.utils import to_hex2, to_hex4
 
 
 def main():
-
-    ###### orig build
-    orig_output = BuildOutput()
-
-    # orig ROM
-    orig_rom = (SrcFileProcessor('../archived/build/ROM.COM', None).process(None))[4:]
-    orig_output.put(0xc000, orig_rom[0x0000: 0x1000])
-    orig_output.put(0xd800, orig_rom[0x1000:])
-
-    # orig RAM
-    orig_ram = (SrcFileProcessor('../archived/build/RAM.COM', None).process(None))[4:]
-    orig_output.put(0x4c40, orig_ram[0x0000:])
-
-    # orig game code
-    BinSrcFileProcessor('../archived/src/m65/MAIN.OBJ').process(orig_output)
-
-
     ###### main build
 
     output = BuildOutput()
@@ -117,30 +99,11 @@ def main():
     movepage6to9_code = (SrcFileProcessor('../src/asm/movepage6to9.obx', None).process(None))[2:]
 
 
-    ##### orig generating artifacts
-    orig_output.export("o_wladca.dat")
-
-    bin_orig_output = BinOutput(orig_output, moverom_code, movepage6to9_code)
-    bin_orig_output.export("o_wladca.com")
-
-
-
     ##### main generating artifacts
     output.export("wladca.dat")
 
     bin_output = BinOutput(output, moverom_code, movepage6to9_code)
     bin_output.export("wladca.com")
-
-
-
-    ##### generating orig/main diff
-    with open("diff.log", 'w') as fh:
-        for i in range(0x900, 0x10000):
-            orig_byte = orig_output.get_byte(i)
-            new_byte = output.get_byte(i)
-            if orig_byte != new_byte:
-                fh.write("{}\t{}\t{}\n".format(to_hex4(i), to_hex2(orig_byte), to_hex2(new_byte)))
-
 
 
 if __name__ == "__main__":
