@@ -13,11 +13,3 @@ def convert_character_atascii_to_screen(c):
     if c < 0x60:
         return c - 0x20
     return c
-
-
-def to_hex2(a):
-    return "{:02x}".format(a)
-
-
-def to_hex4(a):
-    return "{:04x}".format(a)

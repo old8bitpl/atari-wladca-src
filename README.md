@@ -13,6 +13,10 @@ Original content from atari disks (requires cleaning)
 
 Extracted files from original atari disks
 
+#### archived/src/graph
+
+Older versions of graphs
+
 #### archived/src/m65
 
 MAC/65 sources (the actual code)
@@ -78,12 +82,6 @@ Running generated game file (example):
 
 
 ### dist
-
-#### dist/orig
-
-generated o_wladca.com and o_wladca.atr
-
-#### dist/new
 
 generated wladca.com and wladca.atr
 
