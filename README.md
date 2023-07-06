@@ -23,23 +23,27 @@ MAC/65 sources (the actual code)
 main game file: MAIN.M65 (includes other INC files. Checkout should be on H1:)
 (ASM,,#H1:MAIN.OBJ to compile)
 
+#### src/tbd
+
+other source files (but not used)
+
 #### archived/com
 original WLADCA.COM game file
 
 
 ### src
 
-Folder with categorized files
+Folder with sources files
 
 #### src/asm
 
 Mads sources (the actual code), converted and adapted from MAC/65 sources
-main game file: main.asm (includes other inc files) (mads -lpt main to compile)
+main game file: main.asm (includes other inc files) (mads -lpt main (also moverom and movepage6to9) to compile)
 Mads: https://github.com/tebe6502/Mad-Assembler and https://mads.atari8.info/
 
 #### src/data
 
-data in txt format (players and countries)
+data in txt format
 
 #### src/graph
 
@@ -53,21 +57,10 @@ music in CMC format (Chaos Music Composer)
 
 digitalized sounds
 
-#### src/tbd
-
-other files to process (not yet used)
-
-#### src/tool
-
-util programs
-as to MAC/65 - please download it from: https://atariwiki.org/wiki/Wiki.jsp?page=Mac65
-
 ### build
 
 Build tools. Use: "python3 main.py" to build (requires compiling sources from src/asm).
 Generates files:
-- o_wladca.dat - data dump file generated from original data files (RAM.COM, ROM.COM) and sources from src/asm
-- o_wladca.com - game com file file generated from original data files (RAM.COM, ROM.COM) and sources from src/asm
 - wladca.dat - data dump file generated from processed data files (graph, music, sound) and sources from src/asm
 - wladca.com - game com file file generated from processed data files (graph, music, sound) and sources from src/asm
 
@@ -84,6 +77,11 @@ Running generated game file (example):
 ### dist
 
 generated wladca.com and wladca.atr
+
+
+### tool
+
+util programs
 
 
 ## Contact
