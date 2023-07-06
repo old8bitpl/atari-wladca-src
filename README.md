@@ -83,12 +83,6 @@ Running generated game file (example):
 
 ### dist
 
-#### dist/orig
-
-generated o_wladca.com and o_wladca.atr
-
-#### dist/new
-
 generated wladca.com and wladca.atr
 
 
