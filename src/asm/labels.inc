@@ -55,8 +55,7 @@ CPUVECTORS = KRZYKDAT+$06FA
 ;
 ; ZMIENNE GRY
 ;
-TMP      =   $BF
-ZN       =   TMP + 1
+ZN       =   $C0
 IZN      =   ZN+$10
 VZN      =   IZN+$10
 DZN      =   VZN+$10
