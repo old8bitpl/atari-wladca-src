@@ -334,19 +334,29 @@ REFRSCR4 TYA
          BNE REFRSCR3
          SEC 
          JSR PRINTNULL
+
+         LDX #3
+         LDA GRACZ
+REFRSCR_PLAYER_LOOP
+         CMP HUMANPL,X
+         BEQ REFRSCR_HUMAN_PLAYER
+         DEX
+         BPL REFRSCR_PLAYER_LOOP
+
+REFRSCR_COMPUTER_PLAYER
          LDA # <DATADAT
          LDY # >DATADAT
-         LDX GRACZ
-         CPX HUMANPL
-         BEQ REFRSCR5
-         CPX HUMANPL+1
-         BNE REFRSCR8
-REFRSCR5 LDA # <ZLOTODATADAT
+         JMP REFRSCR8
+
+REFRSCR_HUMAN_PLAYER
+         LDA # <ZLOTODATADAT
          LDY # >ZLOTODATADAT
          LDX #0
-REFRSCR8 PHP 
-         CLC 
+
+REFRSCR8 PHP
+         CLC
          JSR PRINT
+
          LDA #0
          CLC 
          PHP 
@@ -368,6 +378,7 @@ REFRSCR6 LDA MIESDAT,Y
          INX 
          CPX #11
          BNE REFRSCR6
+
          LDA GRACZ
          PLP 
          BNE REFRSCR9
