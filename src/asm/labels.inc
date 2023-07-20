@@ -55,7 +55,8 @@ CPUVECTORS = KRZYKDAT+$06FA
 ;
 ; ZMIENNE GRY
 ;
-ZN       =   $C0
+TMP      =   $BF
+ZN       =   TMP + 1
 IZN      =   ZN+$10
 VZN      =   IZN+$10
 DZN      =   VZN+$10
@@ -99,7 +100,7 @@ XCELMAX  	org *+1
 YCEL     	org *+1
 YCELMIN  	org *+1
 YCELMAX  	org *+1
-HUMANPL  	org *+2
+HUMANPL  	org *+4
 USERVBLVECT org *+2
 CHARGENVECT org *+1
 QUITZN   	org *+1
@@ -113,7 +114,8 @@ NOBL     	org *+2
 NWINOBL  	org *+2
 NMCY     	org *+2
 ENDSTAT
-NOPCJA   	org *+1
+NOPCJA		org *+1
+NOPTPLJOY	org *+1
 ;
 FREEMEM  	org *+9
 ;

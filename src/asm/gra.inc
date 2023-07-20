@@ -651,36 +651,54 @@ SELMAN1  LDA NAMPLDAT,Y
          STA NAMPLTAB,Y
          DEY 
          BPL SELMAN1
+         STY HUMANPL
          STY HUMANPL+1
+         STY HUMANPL+2
+         STY HUMANPL+3
          STY IMMZN
          LDA #12
          STA $D012
          LDA #0
+         STA GRACZ
+
+SELMAN_LOOP
+         LDA GRACZ
          JSR SELMANPROC
-         STA HUMANPL
+
+         LDY #3
+SELMAN_CHECK_KNIGHT
+         CMP HUMANPL,Y
+         BEQ SELMAN_KNIGHT_ALREADY_CHOSEN
+		 DEY
+         BPL SELMAN_CHECK_KNIGHT
+
+         LDY GRACZ
+         STA HUMANPL,Y
          JSR GETNAME
-         LDA NOPCJA
-         BEQ SELMAN2
-SELMAN3  LDA #1
-         JSR SELMANPROC
-         CMP HUMANPL
-         BNE SELMAN4
+
+         JSR GET_N_PLAYERS
+         INC GRACZ
+         CMP GRACZ
+         BNE SELMAN_LOOP
+
+SELMAN_END
+         LDA #0
+         STA $D000
+         RTS
+
+SELMAN_KNIGHT_ALREADY_CHOSEN
          LDA # <SELMANTXT3
          LDY # >SELMANTXT3
          CLC 
          JSR PRINT
          SEC 
          JSR PRINTNULL
-         LDA NOPCJA
-         LSR
-         TAY 
-         JSR WAITFIRE
-         JMP SELMAN3
-SELMAN4  STA HUMANPL+1
-         JSR GETNAME
-SELMAN2  LDA #0
-         STA $D000
-         RTS 
+
+         LDA GRACZ
+         JSR GET_PLAYER_JOYSTICK
+         TAY
+         JSR WAIT_FIRE
+         JMP SELMAN_LOOP
 ;
 SELMANPROC STA ZN
          LDA # <SELMANTXT1
@@ -710,12 +728,11 @@ SELMANPROC2 LDA DKURDAT,X
          INX 
          CPX #8
          BNE SELMANPROC2
-SELMANPROC3 LDY #0
-         LDA NOPCJA
-         CMP #2
-         BNE SELMANPROC5
-         LDY ZN
-SELMANPROC5 JSR GETJOY
+SELMANPROC3
+         LDA ZN
+         JSR GET_PLAYER_JOYSTICK
+         TAY
+         JSR GETJOY
          STA POM
          JSR CHKPOZ
          LDY XCEL
@@ -726,14 +743,15 @@ SELMANPROC5 JSR GETJOY
          JSR PRINTPLNAME
          LDA #4
          JSR WAIT
-         LDY #0
-         LDA NOPCJA
-         CMP #2
-         BNE SELMANPROC4
-         LDY ZN
-SELMANPROC4 JSR GETFIRE
+
+         LDA ZN
+         JSR GET_PLAYER_JOYSTICK
+         TAY
+         JSR GETFIRE
          BNE SELMANPROC3
-         JSR WAITFIREB
+
+         JSR WAIT_FIRE
+
          LDA XCEL
          RTS 
 ;
