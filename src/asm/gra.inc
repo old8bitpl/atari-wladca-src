@@ -669,7 +669,7 @@ SELMAN_LOOP
 SELMAN_CHECK_KNIGHT
          CMP HUMANPL,Y
          BEQ SELMAN_KNIGHT_ALREADY_CHOSEN
-		 DEY
+         DEY
          BPL SELMAN_CHECK_KNIGHT
 
          LDY GRACZ
@@ -889,18 +889,13 @@ INITGRA7 DEY
 INITGRA4 STA KSTAB,X
          DEX 
          BPL INITGRA4
+
          LDX #3
-INITGRA5 CPX HUMANPL
-         BEQ INITGRA8
-         CPX HUMANPL+1
-         BEQ INITGRA8
-         LDA NOPCJA
-         BEQ INITGRA8
-         JSR FIND3KS
-         JMP INITGRA6
-INITGRA8 JSR FIND1KS
-INITGRA6 DEX 
+INITGRA5
+         JSR FIND1KS
+         DEX 
          BPL INITGRA5
+
          LDA #0
          LDY #237
          LDX #56
@@ -928,38 +923,3 @@ FIND1KS  JSR FINDKSPROC
          STA KSZN,X
          RTS 
 ;
-FIND3KS  STX VZN
-FIND3KS1 LDX VZN
-         JSR FINDKSPROC
-         STA VZN+1
-         ASL
-         ASL
-         ASL
-         TAY 
-         LDA NEARTAB,Y
-         BMI FIND3KS1
-         TAX 
-         LDA KSTAB,X
-         BPL FIND3KS1
-         STX VZN+2
-         INY 
-         LDA NEARTAB,Y
-         BMI FIND3KS1
-         TAX 
-         LDA KSTAB,X
-         BPL FIND3KS1
-         STX VZN+3
-         LDA VZN
-         STA KSTAB,X
-         LDX VZN+2
-         STA KSTAB,X
-         LDX VZN+1
-         STA KSTAB,X
-         TAX 
-         LDA #3
-         STA KSZN,X
-         LDA VZN+1
-         STA ARMPOS,X
-         RTS 
-;
-
