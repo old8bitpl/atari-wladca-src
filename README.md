@@ -1,36 +1,6 @@
 
 ## Content (folders)
 
-### archived
-
-Folder containing archived content (no longer need to work on)
-
-#### archived/atr
-
-Original content from atari disks (requires cleaning)
-
-#### archived/atr.extracted
-
-Extracted files from original atari disks
-
-#### archived/src/graph
-
-Older versions of graphs
-
-#### archived/src/m65
-
-MAC/65 sources (the actual code)
-main game file: MAIN.M65 (includes other INC files. Checkout should be on H1:)
-(ASM,,#H1:MAIN.OBJ to compile)
-
-#### src/tbd
-
-other source files (but not used)
-
-#### archived/com
-original WLADCA.COM game file
-
-
 ### src
 
 Folder with sources files
