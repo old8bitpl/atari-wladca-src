@@ -335,13 +335,8 @@ REFRSCR4 TYA
          SEC 
          JSR PRINTNULL
 
-         LDX #3
-         LDA GRACZ
-REFRSCR_PLAYER_LOOP
-         CMP HUMANPL,X
+         JSR IS_PLAYER_HUMAN
          BEQ REFRSCR_HUMAN_PLAYER
-         DEX
-         BPL REFRSCR_PLAYER_LOOP
 
 REFRSCR_COMPUTER_PLAYER
          LDA # <DATADAT
@@ -676,12 +671,8 @@ SELMAN_LOOP
          LDA GRACZ
          JSR SELMANPROC
 
-         LDY #3
-SELMAN_CHECK_KNIGHT
-         CMP HUMANPL,Y
+         JSR IS_PLAYER_HUMAN
          BEQ SELMAN_KNIGHT_ALREADY_CHOSEN
-         DEY
-         BPL SELMAN_CHECK_KNIGHT
 
          LDY GRACZ
          STA HUMANPL,Y
@@ -692,7 +683,6 @@ SELMAN_CHECK_KNIGHT
          CMP GRACZ
          BNE SELMAN_LOOP
 
-SELMAN_END
          LDA #0
          STA $D000
          RTS
@@ -709,6 +699,7 @@ SELMAN_KNIGHT_ALREADY_CHOSEN
          JSR GET_PLAYER_JOYSTICK
          TAY
          JSR WAIT_FIRE
+
          JMP SELMAN_LOOP
 ;
 SELMANPROC STA ZN
@@ -903,8 +894,17 @@ INITGRA4 STA KSTAB,X
 
          LDX #3
 INITGRA5
+         JSR IS_SINGLE_HUMAN_PLAYER
+         BEQ INITGRA_SINGLE_HUMAN_PLAYER
+
          JSR FIND1KS
-         DEX 
+         JMP INITGRA8
+
+INITGRA_SINGLE_HUMAN_PLAYER
+         JSR FIND3KS
+
+INITGRA8
+         DEX
          BPL INITGRA5
 
          LDA #0
@@ -932,5 +932,39 @@ FIND1KS  JSR FINDKSPROC
          STA KSTAB,Y
          LDA #1
          STA KSZN,X
+         RTS 
+;
+FIND3KS  STX VZN
+FIND3KS1 LDX VZN
+         JSR FINDKSPROC
+         STA VZN+1
+         ASL
+         ASL
+         ASL
+         TAY
+         LDA NEARTAB,Y
+         BMI FIND3KS1
+         TAX
+         LDA KSTAB,X
+         BPL FIND3KS1
+         STX VZN+2
+         INY
+         LDA NEARTAB,Y
+         BMI FIND3KS1
+         TAX
+         LDA KSTAB,X
+         BPL FIND3KS1
+         STX VZN+3
+         LDA VZN
+         STA KSTAB,X
+         LDX VZN+2
+         STA KSTAB,X
+         LDX VZN+1
+         STA KSTAB,X
+         TAX 
+         LDA #3
+         STA KSZN,X
+         LDA VZN+1
+         STA ARMPOS,X
          RTS 
 ;
