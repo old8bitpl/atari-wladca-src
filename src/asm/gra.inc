@@ -335,7 +335,7 @@ REFRSCR4 TYA
          SEC 
          JSR PRINTNULL
 
-         JSR IS_PLAYER_HUMAN
+         JSR IS_CURRENT_PLAYER_HUMAN
          BEQ REFRSCR_HUMAN_PLAYER
 
 REFRSCR_COMPUTER_PLAYER
@@ -668,9 +668,7 @@ SELMAN1  LDA NAMPLDAT,Y
          STA GRACZ
 
 SELMAN_LOOP
-         LDA GRACZ
          JSR SELMANPROC
-
          JSR IS_PLAYER_HUMAN
          BEQ SELMAN_KNIGHT_ALREADY_CHOSEN
 
@@ -695,20 +693,19 @@ SELMAN_KNIGHT_ALREADY_CHOSEN
          SEC 
          JSR PRINTNULL
 
-         LDA GRACZ
          JSR GET_PLAYER_JOYSTICK
          TAY
          JSR WAIT_FIRE
 
          JMP SELMAN_LOOP
 ;
-SELMANPROC STA ZN
+SELMANPROC
          LDA # <SELMANTXT1
          LDY # >SELMANTXT1
          CLC 
          JSR PRINT
          CLC 
-         LDA ZN
+         LDA GRACZ
          ADC #17
          STA INFOLINE+13
          SEC 
@@ -730,8 +727,8 @@ SELMANPROC2 LDA DKURDAT,X
          INX 
          CPX #8
          BNE SELMANPROC2
+
 SELMANPROC3
-         LDA ZN
          JSR GET_PLAYER_JOYSTICK
          TAY
          JSR GETJOY
@@ -746,13 +743,12 @@ SELMANPROC3
          LDA #4
          JSR WAIT
 
-         LDA ZN
          JSR GET_PLAYER_JOYSTICK
          TAY
          JSR GETFIRE
          BNE SELMANPROC3
 
-         JSR WAIT_FIRE
+         JSR WAIT_RELEASE_FIRE
 
          LDA XCEL
          RTS 

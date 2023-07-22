@@ -12,13 +12,14 @@
 ;4         2       2
 ;5         4       2
 
+IS_CURRENT_PLAYER_HUMAN
+         LDA GRACZ
 IS_PLAYER_HUMAN
          LDX #3
 IS_PLAYER_HUMAN_LOOP
-         LDA GRACZ
          CMP HUMANPL,X
          BEQ IS_PLAYER_HUMAN_FOUND
-         INX
+         DEX
          BPL IS_PLAYER_HUMAN_LOOP
          CPX #3
 IS_PLAYER_HUMAN_FOUND
@@ -51,9 +52,9 @@ GET_N_JOYSTICKS
 WAIT_FIRE
          JSR GETFIRE
          BNE WAIT_FIRE
-WAIT_FIRE_FOR_RELEASE
+WAIT_RELEASE_FIRE
          JSR GETFIRE
-         BEQ WAIT_FIRE_FOR_RELEASE
+         BEQ WAIT_RELEASE_FIRE
          RTS
 
 
@@ -73,8 +74,6 @@ WAIT_ANY_FIRE_END
          RTS
 
 
-; params:
-; A - GRACZ (0-3)
 ; returns:
 ; joystick no (0-1) or 255 if not appropriate
 ;NOPTPLJOY	GRACZ	RESULT
@@ -114,7 +113,7 @@ WAIT_ANY_FIRE_END
 ;5			3		1
 ;5			4+		255
 GET_PLAYER_JOYSTICK
-         TAX
+         LDX GRACZ
 
          LDA NOPTPLJOY
          CMP #4
