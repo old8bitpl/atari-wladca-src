@@ -111,7 +111,7 @@ NBITEW   	org *+2
 NWINBITEW 	org *+2
 NOBL     	org *+2
 NWINOBL  	org *+2
-NMCY     	org *+2
+NMCY     	org *+4
 ENDSTAT
 NOPCJA		org *+1
 NOPTPLJOY	org *+1

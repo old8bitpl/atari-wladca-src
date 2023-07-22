@@ -439,10 +439,16 @@ TIMEUPPROC LDA HUMANPL,X
          INC NMCY,X
 TIMEUPPROC1 RTS 
 ;
-TIMEUP   LDX #0
+TIMEUP
+         JSR GET_N_PLAYERS
+         TAX
+         DEX
+
+TIMEUP_LOOP
          JSR TIMEUPPROC
-         INX 
-         JSR TIMEUPPROC
+         DEX
+         BPL TIMEUP_LOOP
+
          INC MIESIAC
          LDA MIESIAC
          CMP #12
