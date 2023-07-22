@@ -870,12 +870,15 @@ INITGRA3 LDA #20
          STA KASAZN+1,Y
          TYA 
          LSR
-         CMP HUMANPL
-         BEQ INITGRA9
-         CMP HUMANPL+1
+
+         JSR IS_PLAYER_HUMAN
          BNE INITGRA7
-INITGRA9 LDA IMMZN
+
+INITGRA_HUMAN_PLAYER
+         LDA IMMZN
          BNE INITGRA7
+
+; GOD MODE
          LDA #255
          STA KASAZN,Y
          STA KASAZN+1,Y
@@ -885,6 +888,7 @@ INITGRA9 LDA IMMZN
          STA BUYSOLD+1
          STA BUYSOLD+2
          STA BUYSOLD+3
+
 INITGRA7 DEY 
          DEY 
          BPL INITGRA3
