@@ -560,12 +560,17 @@ CHKPLENDPROC LDA HUMANPL,Y
          STA HUMANPL,Y
 CHKPLENDPROC1 RTS 
 ;
-CHKPLEND LDY #0
+CHKPLEND
+         LDY #3
+CHKPLEND_LOOP
          JSR CHKPLENDPROC
-         INY 
-         JSR CHKPLENDPROC
+         DEY
+         BPL CHKPLEND_LOOP
+
          LDA HUMANPL
          AND HUMANPL+1
+         AND HUMANPL+2
+         AND HUMANPL+3
          CMP #255
          RTS 
 ;
