@@ -116,6 +116,5 @@ ENDSTAT
 NOPCJA		org *+1
 NOPTPLJOY	org *+1
 ;
-FREEMEM  	org *+9
-;
+
 
