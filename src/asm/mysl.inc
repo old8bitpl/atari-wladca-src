@@ -148,7 +148,7 @@ DOCHUP   LDX GRACZ
          STY ZN
          STY ZN+1
 DOCHUP3  LDA BUFFER,Y
-         BMI DOCHUP1
+         BMI DOCHUP_HUMAN_PLAYER_CHK
          TAX 
          LDA DOCHTAB,X
          CLC 
@@ -159,18 +159,21 @@ DOCHUP3  LDA BUFFER,Y
 DOCHUP2  INY 
          CPY #24
          BNE DOCHUP3
-DOCHUP1  LDA GRACZ
-         TAY 
+
+DOCHUP_HUMAN_PLAYER_CHK
+         JSR IS_CURRENT_PLAYER_HUMAN
+         BEQ DOCHUP_HUMAN_PLAYER
+
+; COMPUTER PLAYERS HAVE DOUBLED INCOME
+         ASL ZN
+         ROL ZN+1
+
+DOCHUP_HUMAN_PLAYER
+         LDA GRACZ
          ASL
          PHA 
          TAX 
-         CPY HUMANPL
-         BEQ DOCHUP5
-         CPY HUMANPL+1
-         BEQ DOCHUP5
-         ASL ZN
-         ROL ZN+1
-DOCHUP5  LDA ZN
+         LDA ZN
          STA DOCHZN,X
          LDA ZN+1
          STA DOCHZN+1,X
