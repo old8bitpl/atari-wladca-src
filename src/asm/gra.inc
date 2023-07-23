@@ -501,22 +501,23 @@ SETVBLPROC LDA #1
          STX USERVBLVECT+1
          RTS 
 ;
-CHKBUNT  LDY #0
-         LDX GRACZ
-         CPX HUMANPL
-         BEQ CHKBUNT3
-         CPX HUMANPL+1
-         BNE CHKBUNT1
-         INY 
-CHKBUNT3 LDA NMCY,Y
+CHK_REBELLION
+         JSR IS_CURRENT_PLAYER_HUMAN
+         BNE CHK_REBELLION_END
+
+         LDA NMCY,X
          CMP #96     ; 8 LAT
-         BEQ CHKBUNT2
+         BEQ CHK_REBELLION_OK
          CMP #60     ; 5 LAT
-         BCC CHKBUNT1
+         BCC CHK_REBELLION_END
+
          LDA $D20A
          AND #3
-         BNE CHKBUNT1
-CHKBUNT2 LDA ARMPOS,X
+         BNE CHK_REBELLION_END
+
+CHK_REBELLION_OK
+         LDX GRACZ
+         LDA ARMPOS,X
          TAY 
          TXA 
          JSR CRBUF
@@ -525,14 +526,20 @@ CHKBUNT2 LDA ARMPOS,X
          LDA #0
          STA KSZN,X
          LDY #23
-CHKBUNT4 LDA KSTAB,Y
+
+CHK_REBELLION_LOOP
+         LDA KSTAB,Y
          CMP GRACZ
-         BNE CHKBUNT5
+         BNE CHK_REBELLION_LOOP1
+
          LDA #255
          STA KSTAB,Y
-CHKBUNT5 DEY 
-         BPL CHKBUNT4
-CHKBUNT1 RTS 
+CHK_REBELLION_LOOP1
+         DEY
+         BPL CHK_REBELLION_LOOP
+
+CHK_REBELLION_END
+         RTS
 ;
 CHKPLENDPROC LDA HUMANPL,Y
          TAX 
@@ -589,7 +596,7 @@ GRA      JSR INITGRA
 GRA1     LDA #0
          STA GRACZ
          JSR SOJDOWN
-GRA2     JSR CHKBUNT
+GRA2     JSR CHK_REBELLION
          JSR CHKGRTRUP
          BEQ GRA3
          JSR REFRSCR
