@@ -462,18 +462,20 @@ TIMEUP_LOOP
          INC ROK+1
 TIMEUP1  RTS 
 ;
-CHKGRTRUP LDX GRACZ
+CHK_PLAYER_IS_DEAD
+         LDX GRACZ
          LDA KSZN,X
-         BNE CHKGRTRUP1
+         BNE CHK_PLAYER_IS_DEAD1
          LDA #255
          STA ARMPOS,X
-         TXA 
+         TXA
          ASL
-         TAX 
+         TAX
          LDA #0
          STA DOCHZN,X
          STA DOCHZN+1,X
-CHKGRTRUP1 RTS 
+CHK_PLAYER_IS_DEAD1
+         RTS
 ;
 SCREENOFF LDA #1
          JSR WAIT
@@ -593,41 +595,59 @@ CHKPLWIN LDY #0
          JSR CHKPLWINPROC
 CHKPLWIN1 RTS 
 ;
-GRA      JSR INITGRA
+GAME
+         JSR INITGRA
          LDA #0
          STA QUITZN
          STA GRACZ
          JSR REFRSCR
-GRA1     LDA #0
+
+GAME_LOOP
+         LDA #0
          STA GRACZ
          JSR SOJDOWN
-GRA2     JSR CHK_REBELLION
-         JSR CHKGRTRUP
-         BEQ GRA3
+
+GAME_PLAYER_LOOP
+         JSR CHK_REBELLION
+         JSR CHK_PLAYER_IS_DEAD
+         BEQ GAME_PLAYER_CHK_IS_DEAD
+
          JSR REFRSCR
          JSR PLOTMAN
          JSR RUCHGR
          JSR REFRSCR
          LDA #50
          JSR WAIT
-GRA3     JSR CHKPLEND
-         BEQ GRA4
+
+GAME_PLAYER_CHK_IS_DEAD
+         JSR CHKPLEND
+         BEQ GAME_PLAYER_IS_DEAD
+
          JSR CHKPLWIN
-         BCS GRA5
+         BCS GAME_PLAYER_WON
+
          LDA QUITZN
-         BNE GRA6
+         BNE GAME_OVER
+
          INC GRACZ
          LDA GRACZ
          CMP #4
-         BNE GRA2
+         BNE GAME_PLAYER_LOOP
+
          JSR TIMEUP
-         JMP GRA1
-GRA4     JMP SCREENOFF
-GRA5     LDA #50
+         JMP GAME_LOOP
+
+GAME_PLAYER_IS_DEAD
+         JMP SCREENOFF
+
+GAME_PLAYER_WON
+         LDA #50
          JSR WAIT
          JSR SCREENOFF
          JMP KONIECWIN
-GRA6     LDA #50
+
+GAME_OVER
+         LDA #50
          JSR WAIT
          JSR SCREENOFF
          JMP KONIECBREAK

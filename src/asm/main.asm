@@ -57,7 +57,7 @@ GO       LDX #$FF
          JSR MUSICON
 ;
 MAIN     JSR CZOLO
-         JSR GRA
+         JSR GAME
          JMP MAIN
 
 ;
