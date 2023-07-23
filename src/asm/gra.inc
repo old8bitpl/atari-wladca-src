@@ -184,7 +184,9 @@ CLRSTAT2 STA RTIMER,Y
          LDA #1
          STA NMCY
          STA NMCY+1
-         RTS 
+         STA NMCY+2
+         STA NMCY+3
+         RTS
 ;
 USERVBLPROC .WORD ANIMPROC
          .WORD NULLPROC
