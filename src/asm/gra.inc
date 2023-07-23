@@ -181,6 +181,13 @@ CLRSTAT2 STA RTIMER,Y
          LDA #20
          STA BUYSOLD
          STA BUYSOLD+2
+         STA BUYSOLD+4
+         STA BUYSOLD+6
+         LDA #0
+         STA BUYSOLD+1
+         STA BUYSOLD+3
+         STA BUYSOLD+5
+         STA BUYSOLD+7
          LDA #1
          STA NMCY
          STA NMCY+1
@@ -918,10 +925,8 @@ INITGRA_HUMAN_PLAYER
          STA KASAZN+1,Y
          STA WOJZN,Y
          STA WOJZN+1,Y
-         STA BUYSOLD
-         STA BUYSOLD+1
-         STA BUYSOLD+2
-         STA BUYSOLD+3
+         STA BUYSOLD,Y
+         STA BUYSOLD+1,Y
 
 INITGRA7 DEY 
          DEY 

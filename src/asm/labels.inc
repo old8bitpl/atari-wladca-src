@@ -106,11 +106,11 @@ QUITZN   	org *+1
 MUSICZN  	org *+1
 IMMZN    	org *+1
 RTIMER   	org *+4
-BUYSOLD  	org *+4
-NBITEW   	org *+2
-NWINBITEW 	org *+2
-NOBL     	org *+2
-NWINOBL  	org *+2
+BUYSOLD  	org *+8
+NBITEW   	org *+4
+NWINBITEW 	org *+4
+NOBL     	org *+4
+NWINOBL  	org *+4
 NMCY     	org *+4
 ENDSTAT
 NOPCJA		org *+1
