@@ -23,7 +23,7 @@ STATDL   .BYTE 112,112,112,2+64
          .BYTE 65
          .WORD STATDL
 ;
-CZOLODL  .BYTE 112,112,112,4+64
+CZOLODL  .BYTE 112,112,4+64
          .WORD CZOLOPIC+$0400+$28
          .BYTE 4,4,4,4,4,4,4,4
          .BYTE 4,4,4,4,4,4,4,4
@@ -37,6 +37,8 @@ CZOLODL  .BYTE 112,112,112,4+64
          .WORD OPTLINETXT
          .BYTE 112,64,2+64+16
          .WORD INFOLINE
+         .BYTE 64, 2+64
+         .WORD VERSIONLINE
          .BYTE 65
          .WORD CZOLODL
 ;

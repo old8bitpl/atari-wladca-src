@@ -26,7 +26,6 @@
          ICL 'grint.inc'
 ; KONCOWKA
          ICL 'koniec.inc'
-;
 
 ; PL CHARS (for .SB):
 ; char .BYTE	.SB
@@ -57,7 +56,10 @@ GO       LDX #$FF
 MAIN     JSR CZOLO
          JSR GRA
          JMP MAIN
-
+;
+         org $add8
+VERSIONLINE
+         .BYTE 40 * " "
 ;
          org $02E0
 ;
