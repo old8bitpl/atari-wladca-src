@@ -26,18 +26,33 @@ def convert_ascii_txt_to_screen_arr(txt):
     return converted_txt_arr
 
 
-def get_current_git_sha():
-    repo = git.Repo(search_parent_directories=True)
+def get_current_repo():
+    return git.Repo(search_parent_directories=True)
+
+
+def get_current_git_sha(repo):
     return repo.head.object.hexsha
 
 
-def get_current_git_branch_name():
-    repo = git.Repo(search_parent_directories=True)
+def get_current_git_branch_name(repo):
     return repo.active_branch.name
 
 
-def get_version_line():
-    branch_name = get_current_git_branch_name()
-    sha = get_current_git_sha()
+def get_current_tag_name(repo):
+    return next((tag for tag in repo.tags if tag.commit == repo.head.commit), None)
 
-    return convert_ascii_txt_to_screen_arr("{}/{}".format(branch_name, sha))[0:40]
+
+def get_version_line():
+    repo = get_current_repo()
+    current_tag_name = get_current_tag_name(repo)
+
+    if current_tag_name:
+        version = "{}".format(current_tag_name)
+    else:
+        current_branch_name = get_current_git_branch_name(repo)
+        current_sha = get_current_git_sha(repo)
+        version = "{}/{}".format(current_branch_name, current_sha)
+
+    version_adjusted = version[0:40]
+    version_formatted = " " * (40 - len(version_adjusted)) + version_adjusted
+    return convert_ascii_txt_to_screen_arr(version_formatted)
