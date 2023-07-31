@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 
 from processor.core import BuildOutput, load_text_file
-from processor.utils import convert_character_atascii_to_screen
+from processor.utils import convert_ascii_txt_to_screen_arr
 
 
 class CountryNamesProcessor:
@@ -35,7 +35,7 @@ class CountryNamesProcessor:
             output.put_byte(sadr, income)
 
             country_name_with_income = "{} ({})".format(country_name_txt.strip(), income)
-            country_name = (self.convert_country_name(country_name_with_income))
+            country_name = (convert_ascii_txt_to_screen_arr(country_name_with_income))
             country_name.append(0xff)
             sadr = self.namkstab_offset + 16 * kn
             output.put(sadr, country_name)
@@ -81,11 +81,3 @@ class CountryNamesProcessor:
         for number_str in numbers_str.split(";"):
             data.append(int(number_str.strip()))
         return data
-
-    def convert_country_name(self, country_name_str: str):
-        converted_country_name = []
-        for c in country_name_str:
-            c_converted = convert_character_atascii_to_screen(c)
-            converted_country_name.append(c_converted)
-
-        return converted_country_name
