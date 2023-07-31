@@ -59,7 +59,10 @@ GO       LDX #$FF
 MAIN     JSR CZOLO
          JSR GAME
          JMP MAIN
-
+;
+         org $add8
+VERSIONLINE
+         .BYTE 40 * " "
 ;
          org $02E0
 ;

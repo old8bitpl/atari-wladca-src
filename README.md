@@ -1,3 +1,9 @@
+## Requirements
+
+### build
+- python3
+- gitpython (pip install gitpython)
+
 
 ## Content (folders)
 
