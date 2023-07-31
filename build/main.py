@@ -15,8 +15,10 @@ from processor.processors.tournament_graphs_processor import TournamentGraphsPro
 from processor.processors.wallbreach_graph_processor import WallBreachGraphProcessor
 from processor.processors.scream_sound_processor import ScreamSoundProcessor
 from processor.mem_map import MIRAGEPIC, CZOLOPIC, MAPAPIC, BITWAPIC, ZAMEK1PIC, ZAMEK2PIC, SPISEKPIC, \
-    WINTURNIEJPIC, KONIECPIC, CHARGEN, KATANIMBUF, MURANIMBUF, KRZYKDAT, SOJPIC, TARCZAPIC, TARCZAFAZATAB, FLAGAFAZATAB, \
-    NAMPLDAT, NAMKSTAB, DOCHTAB, SHIELDTAB, FLAGTAB, NEARTAB, TERTAB, LOTDAT, MAPANIMDAT, TRUPPICDAT
+    WINTURNIEJPIC, KONIECPIC, CHARGEN, KATANIMBUF, MURANIMBUF, KRZYKDAT, SOJPIC, TARCZAPIC, TARCZAFAZATAB, \
+    FLAGAFAZATAB, NAMPLDAT, NAMKSTAB, DOCHTAB, SHIELDTAB, FLAGTAB, NEARTAB, TERTAB, LOTDAT, MAPANIMDAT, TRUPPICDAT, \
+    VERSIONLINE
+from processor.utils import get_version_line
 
 
 def main():
@@ -98,6 +100,9 @@ def main():
     # movepage6to9 code
     movepage6to9_code = (SrcFileProcessor('../src/asm/movepage6to9.obx', None).process(None))[2:]
 
+    # version line
+    version_line_arr = get_version_line()
+    output.put(VERSIONLINE, version_line_arr)
 
     ##### main generating artifacts
     output.export("wladca.dat")
