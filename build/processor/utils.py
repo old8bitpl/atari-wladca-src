@@ -42,11 +42,13 @@ def get_current_tag_name(repo):
     return next((tag for tag in repo.tags if tag.commit == repo.head.commit), None)
 
 
-def get_version_line():
+def get_version_line(defined_version : str):
     repo = get_current_repo()
     current_tag_name = get_current_tag_name(repo)
 
-    if current_tag_name:
+    if defined_version:
+        version = defined_version
+    elif current_tag_name:
         version = "{}".format(current_tag_name)
     else:
         current_branch_name = get_current_git_branch_name(repo)

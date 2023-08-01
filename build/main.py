@@ -1,5 +1,6 @@
 #!/usr/bin/python3
 
+import sys
 from processor.core import BuildOutput, BinOutput, GmSrcFileProcessor, DataSrcFileProcessor, BinSrcFileProcessor, \
     SrcFileProcessor
 from processor.processors.battle_graph_processor import BattleGraphProcessor
@@ -22,8 +23,9 @@ from processor.utils import get_version_line
 
 
 def main():
-    ###### main build
+    defined_version = sys.argv[1] if len(sys.argv) > 1 else None
 
+    ###### main build
     output = BuildOutput()
 
     # mirage pic
@@ -101,7 +103,7 @@ def main():
     movepage6to9_code = (SrcFileProcessor('../src/asm/movepage6to9.obx', None).process(None))[2:]
 
     # version line
-    version_line_arr = get_version_line()
+    version_line_arr = get_version_line(defined_version)
     output.put(VERSIONLINE, version_line_arr)
 
     ##### main generating artifacts
