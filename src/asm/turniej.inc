@@ -228,19 +228,23 @@ OXYTAB   .BYTE 109,124,7,32,113,120,12,24,117,121,18,26
 ;
 TDISTTAB .BYTE 20,36,48
 ;
-PLTURNIEJ STA POM+1
-         LDY #0
-         CMP HUMANPL
-         BEQ PLTURNIEJ6
-         CMP HUMANPL+1
-         BEQ PLTURNIEJ7
-         TAX 
+PLTURNIEJ
+         STA POM+1
+
+         JSR IS_PLAYER_HUMAN
+         BNE PLTURNIEJ_NO_HUMAN_PLAYER
+
+         LDA POM+1
+         JSR GET_PLAYER_JOYSTICK
+         TAY
+         JMP PLTURNIEJ_HUMAN_PLAYER
+
+PLTURNIEJ_NO_HUMAN_PLAYER
+         LDY POM+1 
          JMP ALLPKTUPPROC
-PLTURNIEJ7 LDA NOPCJA
-         CMP #2
-         BNE PLTURNIEJ6
-         INY 
-PLTURNIEJ6 STY POM+2
+
+PLTURNIEJ_HUMAN_PLAYER
+         STY POM+2
          LDY #0
          STY $D007
          JSR PLUPTARCZA
@@ -369,24 +373,33 @@ PRTURNIEJSTRZAL2 ORA #16
          STA INFOLINE+38
          RTS 
 ;
-ALLPKTUP LDX #3
-ALLPKTUP1 CPX HUMANPL
-         BEQ ALLPKTUP2
-         CPX HUMANPL+1
-         BEQ ALLPKTUP2
-         LDA ZN+4,X
+ALLPKTUP LDY #3
+ALLPKTUP1
+         TYA
+         PHA
+         JSR IS_PLAYER_HUMAN
+         BEQ ALLPKTUP_HUMAN_PLAYER
+
+         LDA ZN+4,Y
          BNE ALLPKTUP2
+
          JSR ALLPKTUPPROC
-ALLPKTUP2 DEX 
+
+ALLPKTUP_HUMAN_PLAYER
+ALLPKTUP2
+         PLA
+         TAX
+         DEY 
          BPL ALLPKTUP1
          RTS 
 ;
-ALLPKTUPPROC LDY #4
+ALLPKTUPPROC LDX #4
 ALLPKTUPPROC1 LDA $D20A
          AND #3
-         ADC ZN,X
-         STA ZN,X
-         DEY 
+         CLC
+         ADC ZN,Y
+         STA ZN,Y
+         DEX
          BNE ALLPKTUPPROC1
          RTS 
 ;
@@ -726,21 +739,28 @@ TURNIEJ1 STA PMBASE+$0400,Y
          LDA #7
          STA $D206
          JSR ELIMFIRST
+
 TURNIEJ2 LDA #0
          STA ZN
          STA ZN+1
          STA ZN+2
          STA ZN+3
-         LDY HUMANPL
+
+         JSR GET_N_PLAYERS
+         TAY
+         DEY
+TURNIEJ2_N_HUMAN_PLAYER
          LDA ZN+4,Y
-         BEQ TURNIEJ6
-         LDY HUMANPL+1
-         LDA ZN+4,Y
-         BEQ TURNIEJ6
+         BEQ TURNIEJ_IF_AT_LEAST_ONE_HUMAN_PLAYER
+         DEY
+         BPL TURNIEJ2_N_HUMAN_PLAYER
+
          JSR ALLPKTUP
          JSR ELIMRUNDA
          JMP TURNIEJ11
-TURNIEJ6 LDA #0
+
+TURNIEJ_IF_AT_LEAST_ONE_HUMAN_PLAYER
+         LDA #0
 TURNIEJ12 PHA 
          TAY 
          LDA ZN+4,Y
@@ -759,44 +779,56 @@ TURNIEJ13 PLA
          JSR PRSTRUNDA
          LDY #255
          JSR WAITFIRE
+
 TURNIEJ7 LDA IMMZN
          BNE TURNIEJ11
          LDA $D01F
          AND #$07
          CMP #$03
          BNE TURNIEJ11
+
+; immo mode - human player 0 always wins
          LDX HUMANPL
          LDA #0
          STA ZN+4,X
-         BEQ TURNIEJ8
+         BEQ TURNIEJ8_HUMAN_PLAYER_WINS
+
 TURNIEJ11 INC NTARCZA
          LDA NTARCZA
          CMP #3
          BNE TURNIEJ2
-         LDX HUMANPL
-         CPX #255
-         BEQ TURNIEJ14
+
+         JSR GET_N_PLAYERS
+         TAX
+TURNIEJ11_N_HUMAN_PLAYER
+         DEX
+         BMI TURNIEJ11_NO_HUMAN_PLAYER
+
+         LDA HUMANPL,X
+         CMP #255
+         BEQ TURNIEJ11_N_HUMAN_PLAYER
+
          LDA ZN+4,X
-         BEQ TURNIEJ8
-TURNIEJ14 LDX HUMANPL+1
-         CPX #255
-         BEQ TURNIEJ15
-         LDA ZN+4,X
-         BEQ TURNIEJ8
-TURNIEJ15 LDX #3
+         BNE TURNIEJ11_N_HUMAN_PLAYER
+         BEQ TURNIEJ8_HUMAN_PLAYER_WINS
+
+TURNIEJ11_NO_HUMAN_PLAYER
+         LDX #3
 TURNIEJ9 LDA ZN+4,X
          BEQ TURNIEJ10
          DEX 
          BPL TURNIEJ9
 TURNIEJ10 JSR TURNIEJZLOTOUP
          JMP TURNIEJ3
-TURNIEJ8 LDY #7
+
+TURNIEJ8_HUMAN_PLAYER_WINS
+         TXA
+         PHA
+         LDY #7
          LDA #0
 TURNIEJ5 STA $D000,Y
          DEY 
          BPL TURNIEJ5
-         TXA 
-         PHA 
          JSR TURNIEJZLOTOUP
          LDA #7
          JSR SETSCR
@@ -813,14 +845,11 @@ TURNIEJ5 STA $D000,Y
          SEC 
          JSR PRINT
          JSR GLSTLUM
-         PLA 
-         LDY #0
-         CMP HUMANPL
-         BEQ TURNIEJ16
-         LDA NOPCJA
-         CMP #2
-         BNE TURNIEJ16
-         INY 
+         PLA
+
+         JSR GET_PLAYER_JOYSTICK
+         TAY
+
 TURNIEJ16 JSR WAITFIRE
 TURNIEJ3 LDA #0
          LDY #7
@@ -830,10 +859,19 @@ TURNIEJ4 STA $D200,Y
          BPL TURNIEJ4
          LDA #0
          JSR SETSCR
-         LDA HUMANPL
+
+         LDY #3
+TURNIEJ4_ARM_POS
+         TYA
+         PHA
+         LDA HUMANPL,Y
          JSR POSARM
-         LDA HUMANPL+1
-         JMP POSARM
+         PLA
+         TAY
+         DEY
+         BPL TURNIEJ4_ARM_POS
+
+         RTS
 ;
 WINTURNIEJ1TXT .SB " GRATULACJE      !  WYGRA", $5E, "E", $01, " TURNIEJ!!! "
 WINTURNIEJ2TXT .SB " NAGRODA: 1000 SZTUK Z", $5E, "OTA JEST TWOJA!  "
