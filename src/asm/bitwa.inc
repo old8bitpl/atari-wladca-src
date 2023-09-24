@@ -27,12 +27,14 @@ BITWATXT4 .SB "        "
 		  .SB "        "
 		  .SB "        "
          ;   
-CHKBITWA LDY #0
+CHKBITWA
+         LDY #0
          LDA GRACZ
          CMP HUMANPL
          BEQ CHKBITWA1
          CMP HUMANPL+1
          BNE CHKBITWA2
+
 CHKBITWA1 INY 
 CHKBITWA2 LDA ZN+2
          CMP HUMANPL
@@ -182,14 +184,13 @@ SELBITWA1 PHA
          LDA GRACZ
          BPL SELBITWA3
 SELBITWA2 LDA ZN+2
-SELBITWA3 LDY #0
-         CMP HUMANPL
-         BEQ SELBITWA4
-         LDA NOPCJA
-         CMP #2
-         BNE SELBITWA4
-         INY 
-SELBITWA4 JSR GETJOY
+
+SELBITWA3
+         JSR GET_PLAYER_JOYSTICK
+         TAY
+
+SELBITWA4
+         JSR GETJOY
          STA POM
          JSR CHKPOZ
          LDY #23
@@ -393,14 +394,10 @@ BITWAQUIT LDA ZN+3
          JSR REFRSCR
 BITWAQUIT1 RTS 
 ;
-BITWAOFFPROC LDY #0
-         CMP HUMANPL
-         BEQ BITWAOFFPROC1
-         LDA NOPCJA
-         CMP #2
-         BNE BITWAOFFPROC1
-         INY 
-BITWAOFFPROC1 RTS 
+BITWAOFFPROC
+         JSR GET_PLAYER_JOYSTICK
+         TAY
+         RTS 
 ;
 BITWAONOFFPROC ASL
          TAX 
