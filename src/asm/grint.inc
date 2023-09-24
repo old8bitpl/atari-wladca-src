@@ -38,17 +38,12 @@ PLUNDERTXT2 .SB "      TEGO SI", $5D, " NIE DA SPL", $5B, "DROWA", $5C, "!      
 PLUNDERTXT3 .SB "           ZDOBYTE Z", $5E, "OTO:               "
 NOANTYTXT .SB "  PRZECIE", $02, " NIE MASZ JU", $02, " PRZECIWNIK", $00, "W!   "
 ;
-MENUOBS  LDY #0
-         STY POM+1
-         LDA GRACZ
-         CMP HUMANPL
-         BEQ MENUOBS4
-         INC POM+1
-         LDA NOPCJA
-         CMP #2
-         BNE MENUOBS4
-         INY 
-MENUOBS4 STY POM+2
+MENUOBS  
+         JSR IS_CURRENT_PLAYER_HUMAN
+         STX POM+1
+         JSR GET_CURRENT_PLAYER_JOYSTICK
+         STX POM+2
+
          LDY GRACZ
          LDA KSZN,Y
          BEQ MENUOBS3
@@ -1172,15 +1167,11 @@ PRINTPROPPLNAME PHA
          LDY #17
          JMP PRINTPLNAME
 ;
-PROPBUYG LDY #0
+PROPBUYG
          LDA ZN+2
-         CMP HUMANPL
-         BEQ PROPBUYG2
-         LDA NOPCJA
-         CMP #2
-         BNE PROPBUYG2
-         INY 
-PROPBUYG2 STY POM+2
+         JSR GET_PLAYER_JOYSTICK
+         STA POM+2
+
          LDA ZN+1
          JSR PLOTKURKS
          LDA ZN+2
@@ -1217,15 +1208,11 @@ PROPBUYG2 STY POM+2
 PROPBUYG1 LDA #255
          RTS 
 ;
-PROPSELLG LDY #0
+PROPSELLG
          LDA ZN
-         CMP HUMANPL
-         BEQ PROPSELLG2
-         LDA NOPCJA
-         CMP #2
-         BNE PROPSELLG2
-         INY 
-PROPSELLG2 STY POM+2
+         JSR GET_PLAYER_JOYSTICK
+         STA POM+2
+
          LDA ZN
          ASL
          TAY 
@@ -1279,15 +1266,11 @@ PROPSELLG1 LDY ZN+1
          RTS 
 ;
 PROPSOJG TYA 
-         PHA 
-         LDY #0
-         CMP HUMANPL
-         BEQ PROPSOJG2
-         LDA NOPCJA
-         CMP #2
-         BNE PROPSOJG2
-         INY 
-PROPSOJG2 STY POM+2
+         PHA
+
+         JSR GET_PLAYER_JOYSTICK
+         STA POM+2
+
          PLA 
          PHA 
          JSR PRINTPROPPLNAME
@@ -1368,24 +1351,21 @@ PLOTKURKS5 LDA DKURDAT,Y
          STA $D000
          RTS 
 ;
-SPISEK   LDA GRACZ
-         CMP HUMANPL
-         BEQ SPISEK10
-         CMP HUMANPL+1
-         BNE SPISEK8
-SPISEK10 LDY #0
-         CMP HUMANPL
-         BEQ SPISEK11
-         LDA NOPCJA
-         CMP #2
-         BNE SPISEK11
-         INY 
-SPISEK11 STY POM+2
+SPISEK
+         JSR IS_CURRENT_PLAYER_HUMAN
+         BNE SPISEK_PLAYER_IS_NOT_HUMAN
+
+         JSR GET_CURRENT_PLAYER_JOYSTICK
+         STA POM+2
+
          LDA $D20A
          TAY 
          AND #240
          BEQ SPISEK7
-SPISEK8  JMP SPISEK1
+
+SPISEK_PLAYER_IS_NOT_HUMAN
+         JMP SPISEK1
+
 SPISEK7  TYA 
          AND #15
          PHA 
