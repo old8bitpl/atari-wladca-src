@@ -21,7 +21,7 @@ IS_PLAYER_HUMAN_LOOP
          BEQ IS_PLAYER_HUMAN_FOUND
          DEX
          BPL IS_PLAYER_HUMAN_LOOP
-         CPX #3
+         CPX #0
 IS_PLAYER_HUMAN_FOUND
          RTS
 
