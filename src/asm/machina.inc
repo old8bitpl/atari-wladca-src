@@ -11,13 +11,11 @@ MACHINA  LDA ZN
          LDA ZN+2
          PHA 
          LDA ZN+3
-         PHA 
-         LDX #0
-         LDA GRACZ
-         CMP HUMANPL
-         BEQ MACHINA11
-         INX 
-MACHINA11 STX ZN+3
+         PHA
+
+         JSR IS_CURRENT_PLAYER_HUMAN
+         STX ZN+3
+
          INC NOBL,X
          BNE MACHINA8
          LDA #255
@@ -64,12 +62,12 @@ MACHINA2 LDA #0
          LDA ZN
          BNE MACHINA1
 MACHINA15 JMP MACHINA5
-MACHINA1 LDY #0
-         LDA NOPCJA
-         CMP #2
-         BNE MACHINA12
-         LDY ZN+3
-MACHINA12 JSR GETJOY
+
+MACHINA1
+         JSR GET_CURRENT_PLAYER_JOYSTICK
+         TAY
+
+         JSR GETJOY
          STA POM
          JSR CHKPION
          SEC 
@@ -84,12 +82,13 @@ MACHINA12 JSR GETJOY
          AND #$07
          CMP #$03
          BEQ MACHINA5
-MACHINA10 LDY #0
-         LDA NOPCJA
-         CMP #2
-         BNE MACHINA13
-         LDY ZN+3
-MACHINA13 JSR GETFIRE
+MACHINA10
+
+         JSR GET_CURRENT_PLAYER_JOYSTICK
+         TAY
+
+MACHINA13
+         JSR GETFIRE
          BNE MACHINA1
          SEC 
          LDA #9
@@ -133,11 +132,11 @@ MACHINA5 ADC #0
          BNE MACHINA9
          LDA #255
          STA NWINOBL,X
-MACHINA9 LDY #0
-         LDA NOPCJA
-         CMP #2
-         BNE MACHINA14
-         LDY ZN+3
+
+MACHINA9
+         JSR GET_CURRENT_PLAYER_JOYSTICK
+         TAY
+
 MACHINA14 JSR WAITFIRE
          PLA 
          STA ZN+3

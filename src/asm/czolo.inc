@@ -185,12 +185,12 @@ CHOPCJA  LDA $D01F
          AND #$07
          CMP #$03
          BNE CHOPCJA1
-         INC NOPCJA
-         LDA NOPCJA
-         CMP #3
+         INC NOPTPLJOY
+         LDA NOPTPLJOY
+         CMP #6
          BNE CHOPCJA2
          LDA #0
-         STA NOPCJA
+         STA NOPTPLJOY
 CHOPCJA2 JSR PRINTOPCJA
 CHOPCJA3 LDA $D01F
          AND #$07
@@ -200,26 +200,20 @@ CHOPCJA1 RTS
 ;
 NOPCJATXTTAB .SB "112122"
 ;
-PRINTOPCJA LDA NOPCJA
-         ASL
-         TAY 
-         LDA NOPCJATXTTAB,Y
+PRINTOPCJA
+         JSR GET_N_PLAYERS
+         ORA #$10
          STA OPTLINETXT+10
-         LDA NOPCJATXTTAB+1,Y
+
+         JSR GET_N_JOYSTICKS
+         ORA #$10
          STA OPTLINETXT+15
          RTS 
 ;
 CZOLO    JSR SETCZOLODL
          JSR PRINTOPCJA
 CZOLO1   JSR CHOPCJA
-         LDY #0
-         JSR GETFIRE
-         BEQ CZOLO2
-         LDA NOPCJA
-         CMP #2
-         BNE CZOLO1
-         LDY #1
-         JSR GETFIRE
+         JSR WAIT_ANY_FIRE
          BNE CZOLO1
 CZOLO2   JSR SCREENOFF
          LDA #$00

@@ -26,6 +26,9 @@
          ICL 'grint.inc'
 ; KONCOWKA
          ICL 'koniec.inc'
+; UTIL
+         ICL 'util.inc'
+;
 
 ; PL CHARS (for .SB):
 ; char .BYTE	.SB
@@ -49,12 +52,12 @@ GO       LDX #$FF
          STA $D301
          LDA #0
          STA MUSICZN
-         STA NOPCJA
+         STA NOPTPLJOY
          LDA #1
          JSR MUSICON
 ;
 MAIN     JSR CZOLO
-         JSR GRA
+         JSR GAME
          JMP MAIN
 ;
          org $add8

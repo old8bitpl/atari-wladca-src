@@ -73,7 +73,9 @@ GETJOY   LDA $D300
          LSR
          LSR
          LSR
-GETJOY1  RTS 
+GETJOY1
+         AND #$0F
+         RTS
 ;
 GETFIRE  LDA $D010,Y
          RTS 

@@ -181,10 +181,19 @@ CLRSTAT2 STA RTIMER,Y
          LDA #20
          STA BUYSOLD
          STA BUYSOLD+2
+         STA BUYSOLD+4
+         STA BUYSOLD+6
+         LDA #0
+         STA BUYSOLD+1
+         STA BUYSOLD+3
+         STA BUYSOLD+5
+         STA BUYSOLD+7
          LDA #1
          STA NMCY
          STA NMCY+1
-         RTS 
+         STA NMCY+2
+         STA NMCY+3
+         RTS
 ;
 USERVBLPROC .WORD ANIMPROC
          .WORD NULLPROC
@@ -334,19 +343,24 @@ REFRSCR4 TYA
          BNE REFRSCR3
          SEC 
          JSR PRINTNULL
+
+         JSR IS_CURRENT_PLAYER_HUMAN
+         BEQ REFRSCR_HUMAN_PLAYER
+
+REFRSCR_COMPUTER_PLAYER
          LDA # <DATADAT
          LDY # >DATADAT
-         LDX GRACZ
-         CPX HUMANPL
-         BEQ REFRSCR5
-         CPX HUMANPL+1
-         BNE REFRSCR8
-REFRSCR5 LDA # <ZLOTODATADAT
+         JMP REFRSCR8
+
+REFRSCR_HUMAN_PLAYER
+         LDA # <ZLOTODATADAT
          LDY # >ZLOTODATADAT
          LDX #0
-REFRSCR8 PHP 
-         CLC 
+
+REFRSCR8 PHP
+         CLC
          JSR PRINT
+
          LDA #0
          CLC 
          PHP 
@@ -368,6 +382,7 @@ REFRSCR6 LDA MIESDAT,Y
          INX 
          CPX #11
          BNE REFRSCR6
+
          LDA GRACZ
          PLP 
          BNE REFRSCR9
@@ -433,10 +448,16 @@ TIMEUPPROC LDA HUMANPL,X
          INC NMCY,X
 TIMEUPPROC1 RTS 
 ;
-TIMEUP   LDX #0
+TIMEUP
+         JSR GET_N_PLAYERS
+         TAX
+         DEX
+
+TIMEUP_LOOP
          JSR TIMEUPPROC
-         INX 
-         JSR TIMEUPPROC
+         DEX
+         BPL TIMEUP_LOOP
+
          INC MIESIAC
          LDA MIESIAC
          CMP #12
@@ -448,18 +469,20 @@ TIMEUP   LDX #0
          INC ROK+1
 TIMEUP1  RTS 
 ;
-CHKGRTRUP LDX GRACZ
+CHK_PLAYER_IS_DEAD
+         LDX GRACZ
          LDA KSZN,X
-         BNE CHKGRTRUP1
+         BNE CHK_PLAYER_IS_DEAD1
          LDA #255
          STA ARMPOS,X
-         TXA 
+         TXA
          ASL
-         TAX 
+         TAX
          LDA #0
          STA DOCHZN,X
          STA DOCHZN+1,X
-CHKGRTRUP1 RTS 
+CHK_PLAYER_IS_DEAD1
+         RTS
 ;
 SCREENOFF LDA #1
          JSR WAIT
@@ -487,22 +510,23 @@ SETVBLPROC LDA #1
          STX USERVBLVECT+1
          RTS 
 ;
-CHKBUNT  LDY #0
-         LDX GRACZ
-         CPX HUMANPL
-         BEQ CHKBUNT3
-         CPX HUMANPL+1
-         BNE CHKBUNT1
-         INY 
-CHKBUNT3 LDA NMCY,Y
+CHK_REBELLION
+         JSR IS_CURRENT_PLAYER_HUMAN
+         BNE CHK_REBELLION_END
+
+         LDA NMCY,X
          CMP #96     ; 8 LAT
-         BEQ CHKBUNT2
+         BEQ CHK_REBELLION_OK
          CMP #60     ; 5 LAT
-         BCC CHKBUNT1
+         BCC CHK_REBELLION_END
+
          LDA $D20A
          AND #3
-         BNE CHKBUNT1
-CHKBUNT2 LDA ARMPOS,X
+         BNE CHK_REBELLION_END
+
+CHK_REBELLION_OK
+         LDX GRACZ
+         LDA ARMPOS,X
          TAY 
          TXA 
          JSR CRBUF
@@ -511,14 +535,20 @@ CHKBUNT2 LDA ARMPOS,X
          LDA #0
          STA KSZN,X
          LDY #23
-CHKBUNT4 LDA KSTAB,Y
+
+CHK_REBELLION_LOOP
+         LDA KSTAB,Y
          CMP GRACZ
-         BNE CHKBUNT5
+         BNE CHK_REBELLION_LOOP1
+
          LDA #255
          STA KSTAB,Y
-CHKBUNT5 DEY 
-         BPL CHKBUNT4
-CHKBUNT1 RTS 
+CHK_REBELLION_LOOP1
+         DEY
+         BPL CHK_REBELLION_LOOP
+
+CHK_REBELLION_END
+         RTS
 ;
 CHKPLENDPROC LDA HUMANPL,Y
          TAX 
@@ -539,12 +569,17 @@ CHKPLENDPROC LDA HUMANPL,Y
          STA HUMANPL,Y
 CHKPLENDPROC1 RTS 
 ;
-CHKPLEND LDY #0
+CHKPLEND
+         LDY #3
+CHKPLEND_LOOP
          JSR CHKPLENDPROC
-         INY 
-         JSR CHKPLENDPROC
+         DEY
+         BPL CHKPLEND_LOOP
+
          LDA HUMANPL
          AND HUMANPL+1
+         AND HUMANPL+2
+         AND HUMANPL+3
          CMP #255
          RTS 
 ;
@@ -567,41 +602,59 @@ CHKPLWIN LDY #0
          JSR CHKPLWINPROC
 CHKPLWIN1 RTS 
 ;
-GRA      JSR INITGRA
+GAME
+         JSR INITGRA
          LDA #0
          STA QUITZN
          STA GRACZ
          JSR REFRSCR
-GRA1     LDA #0
+
+GAME_LOOP
+         LDA #0
          STA GRACZ
          JSR SOJDOWN
-GRA2     JSR CHKBUNT
-         JSR CHKGRTRUP
-         BEQ GRA3
+
+GAME_PLAYER_LOOP
+         JSR CHK_REBELLION
+         JSR CHK_PLAYER_IS_DEAD
+         BEQ GAME_PLAYER_CHK_IS_DEAD
+
          JSR REFRSCR
          JSR PLOTMAN
          JSR RUCHGR
          JSR REFRSCR
          LDA #50
          JSR WAIT
-GRA3     JSR CHKPLEND
-         BEQ GRA4
+
+GAME_PLAYER_CHK_IS_DEAD
+         JSR CHKPLEND
+         BEQ GAME_PLAYER_IS_DEAD
+
          JSR CHKPLWIN
-         BCS GRA5
+         BCS GAME_PLAYER_WON
+
          LDA QUITZN
-         BNE GRA6
+         BNE GAME_OVER
+
          INC GRACZ
          LDA GRACZ
          CMP #4
-         BNE GRA2
+         BNE GAME_PLAYER_LOOP
+
          JSR TIMEUP
-         JMP GRA1
-GRA4     JMP SCREENOFF
-GRA5     LDA #50
+         JMP GAME_LOOP
+
+GAME_PLAYER_IS_DEAD
+         JMP SCREENOFF
+
+GAME_PLAYER_WON
+         LDA #50
          JSR WAIT
          JSR SCREENOFF
          JMP KONIECWIN
-GRA6     LDA #50
+
+GAME_OVER
+         LDA #50
          JSR WAIT
          JSR SCREENOFF
          JMP KONIECBREAK
@@ -651,44 +704,55 @@ SELMAN1  LDA NAMPLDAT,Y
          STA NAMPLTAB,Y
          DEY 
          BPL SELMAN1
+         STY HUMANPL
          STY HUMANPL+1
+         STY HUMANPL+2
+         STY HUMANPL+3
          STY IMMZN
          LDA #12
          STA $D012
          LDA #0
+         STA GRACZ
+
+SELMAN_LOOP
          JSR SELMANPROC
-         STA HUMANPL
+         JSR IS_PLAYER_HUMAN
+         BEQ SELMAN_KNIGHT_ALREADY_CHOSEN
+
+         LDY GRACZ
+         STA HUMANPL,Y
          JSR GETNAME
-         LDA NOPCJA
-         BEQ SELMAN2
-SELMAN3  LDA #1
-         JSR SELMANPROC
-         CMP HUMANPL
-         BNE SELMAN4
+
+         JSR GET_N_PLAYERS
+         INC GRACZ
+         CMP GRACZ
+         BNE SELMAN_LOOP
+
+         LDA #0
+         STA $D000
+         RTS
+
+SELMAN_KNIGHT_ALREADY_CHOSEN
          LDA # <SELMANTXT3
          LDY # >SELMANTXT3
          CLC 
          JSR PRINT
          SEC 
          JSR PRINTNULL
-         LDA NOPCJA
-         LSR
-         TAY 
-         JSR WAITFIRE
-         JMP SELMAN3
-SELMAN4  STA HUMANPL+1
-         JSR GETNAME
-SELMAN2  LDA #0
-         STA $D000
-         RTS 
+
+         JSR GET_CURRENT_PLAYER_JOYSTICK
+         TAY
+         JSR WAIT_FIRE
+
+         JMP SELMAN_LOOP
 ;
-SELMANPROC STA ZN
+SELMANPROC
          LDA # <SELMANTXT1
          LDY # >SELMANTXT1
          CLC 
          JSR PRINT
          CLC 
-         LDA ZN
+         LDA GRACZ
          ADC #17
          STA INFOLINE+13
          SEC 
@@ -710,12 +774,11 @@ SELMANPROC2 LDA DKURDAT,X
          INX 
          CPX #8
          BNE SELMANPROC2
-SELMANPROC3 LDY #0
-         LDA NOPCJA
-         CMP #2
-         BNE SELMANPROC5
-         LDY ZN
-SELMANPROC5 JSR GETJOY
+
+SELMANPROC3
+         JSR GET_CURRENT_PLAYER_JOYSTICK
+         TAY
+         JSR GETJOY
          STA POM
          JSR CHKPOZ
          LDY XCEL
@@ -726,14 +789,14 @@ SELMANPROC5 JSR GETJOY
          JSR PRINTPLNAME
          LDA #4
          JSR WAIT
-         LDY #0
-         LDA NOPCJA
-         CMP #2
-         BNE SELMANPROC4
-         LDY ZN
-SELMANPROC4 JSR GETFIRE
+
+         JSR GET_CURRENT_PLAYER_JOYSTICK
+         TAY
+         JSR GETFIRE
          BNE SELMANPROC3
-         JSR WAITFIREB
+
+         JSR WAIT_RELEASE_FIRE
+
          LDA XCEL
          RTS 
 ;
@@ -848,21 +911,23 @@ INITGRA3 LDA #20
          STA KASAZN+1,Y
          TYA 
          LSR
-         CMP HUMANPL
-         BEQ INITGRA9
-         CMP HUMANPL+1
+
+         JSR IS_PLAYER_HUMAN
          BNE INITGRA7
-INITGRA9 LDA IMMZN
+
+INITGRA_HUMAN_PLAYER_CHK_GOD_MODE
+         LDA IMMZN
          BNE INITGRA7
+
+; GOD MODE
          LDA #255
          STA KASAZN,Y
          STA KASAZN+1,Y
          STA WOJZN,Y
          STA WOJZN+1,Y
-         STA BUYSOLD
-         STA BUYSOLD+1
-         STA BUYSOLD+2
-         STA BUYSOLD+3
+         STA BUYSOLD,Y
+         STA BUYSOLD+1,Y
+
 INITGRA7 DEY 
          DEY 
          BPL INITGRA3
@@ -871,18 +936,30 @@ INITGRA7 DEY
 INITGRA4 STA KSTAB,X
          DEX 
          BPL INITGRA4
-         LDX #3
-INITGRA5 CPX HUMANPL
-         BEQ INITGRA8
-         CPX HUMANPL+1
-         BEQ INITGRA8
-         LDA NOPCJA
-         BEQ INITGRA8
+
+         LDA #3
+         STA GRACZ
+INITGRA_PLAYER_LOOP
+         JSR IS_CURRENT_PLAYER_HUMAN
+         BEQ INITGRA_HUMAN_PLAYER
+
+         JSR IS_SINGLE_HUMAN_PLAYER
+         BNE INITGRA_NOT_A_SINGLE_HUMAN_PLAYER
+
+INITGRA_HUMAN_PLAYER
+INITGRA_COMPUTER_PLAYER_AND_JUST_ONE_HUMAN_PLAYER
+         LDX GRACZ
+         JSR FIND1KS
+         JMP INITGRA8
+
+INITGRA_NOT_A_SINGLE_HUMAN_PLAYER
+         LDX GRACZ
          JSR FIND3KS
-         JMP INITGRA6
-INITGRA8 JSR FIND1KS
-INITGRA6 DEX 
-         BPL INITGRA5
+
+INITGRA8
+         DEC GRACZ
+         BPL INITGRA_PLAYER_LOOP
+
          LDA #0
          LDY #237
          LDX #56
@@ -917,17 +994,17 @@ FIND3KS1 LDX VZN
          ASL
          ASL
          ASL
-         TAY 
+         TAY
          LDA NEARTAB,Y
          BMI FIND3KS1
-         TAX 
+         TAX
          LDA KSTAB,X
          BPL FIND3KS1
          STX VZN+2
-         INY 
+         INY
          LDA NEARTAB,Y
          BMI FIND3KS1
-         TAX 
+         TAX
          LDA KSTAB,X
          BPL FIND3KS1
          STX VZN+3
@@ -944,4 +1021,3 @@ FIND3KS1 LDX VZN
          STA ARMPOS,X
          RTS 
 ;
-

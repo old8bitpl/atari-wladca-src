@@ -99,22 +99,21 @@ XCELMAX  	org *+1
 YCEL     	org *+1
 YCELMIN  	org *+1
 YCELMAX  	org *+1
-HUMANPL  	org *+2
+HUMANPL  	org *+4
 USERVBLVECT org *+2
 CHARGENVECT org *+1
 QUITZN   	org *+1
 MUSICZN  	org *+1
 IMMZN    	org *+1
 RTIMER   	org *+4
-BUYSOLD  	org *+4
-NBITEW   	org *+2
-NWINBITEW 	org *+2
-NOBL     	org *+2
-NWINOBL  	org *+2
-NMCY     	org *+2
+BUYSOLD  	org *+8
+NBITEW   	org *+4
+NWINBITEW 	org *+4
+NOBL     	org *+4
+NWINOBL  	org *+4
+NMCY     	org *+4
 ENDSTAT
-NOPCJA   	org *+1
+NOPTPLJOY	org *+1
 ;
-FREEMEM  	org *+9
-;
+
 
