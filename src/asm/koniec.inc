@@ -4,39 +4,57 @@
 
 KONIECTRUP STA POM
          JSR KONIECSCROFF
+         LDA POM
          JSR STATSCR
          JSR PLTRUPPIC
          JMP WAITMOD
 ;
 KONIECBREAK JSR KONIECSCROFF
-         LDA #0
-         STA POM
-KONIECBREAK1 LDY POM
+
+         LDY #0
+KONIECBREAK1
          LDA HUMANPL,Y
          CMP #255
          BEQ KONIECBREAK2
+         TYA
+         PHA
          JSR STATSCR
-KONIECBREAK2 INC POM
-         LDA POM
-         CMP #2
+         PLA
+         TAY
+KONIECBREAK2 INY
+         CPY #4
          BNE KONIECBREAK1
+
          LDA IMMZN
          BNE KONIECBREAK3
+
          LDA $D01F
          AND #$07
          CMP #$03
-         BEQ KONIECWIN2
+         BEQ KONIECWIN_WIN
+
 KONIECBREAK3 RTS 
 ;
-KONIECWIN JSR KONIECSCROFF
-         LDY #0
-         LDA HUMANPL
+
+KONIECWIN
+         JSR KONIECSCROFF
+
+         LDA #0
+         STA POM
+KONIECWIN1
+         LDY POM
+         LDA HUMANPL,Y
          CMP #255
-         BNE KONIECWIN1
-         INY 
-KONIECWIN1 STY POM
+         BEQ KONIECWIN2
          JSR STATSCR
-KONIECWIN2 JSR WINGAME
+KONIECWIN2
+         INC POM
+         LDA POM
+         CMP #4
+         BNE KONIECWIN1
+
+KONIECWIN_WIN
+         JSR WINGAME
          JMP WAITMOD
 ;
 KONIECSCROFF LDA $D40B
@@ -128,9 +146,14 @@ STATSCRDAT .BYTE $FE,14
          .BYTE $FE,25
          .BYTE $FF
 ;
-STATSCR  JSR WAITMOD
+STATSCR
+         STA POM
          LDA GRACZ
-         PHA 
+         PHA
+         LDA POM
+         STA GRACZ
+         PHA
+		 JSR WAITMOD
          LDA # <STATDL
          LDY # >STATDL
          LDX # >CHARGEN
@@ -297,12 +320,12 @@ STATSCR3 LDA # <(SCRPE+228)
          LDY ZN+3
          LDX #0
          JSR CONVLONG
-         LDY #0
-         LDA NOPCJA
-         CMP #2
-         BNE STATSCR4
-         LDY POM
-STATSCR4 JSR WAITFIRE
+
+         LDA POM
+         JSR GET_PLAYER_JOYSTICK
+         TAY
+
+         JSR WAITFIRE
          JSR KONIECSCROFF
          PLA 
          STA GRACZ
@@ -527,12 +550,12 @@ PLTRUPPIC8 LDA $D40B
          BNE PLTRUPPIC8
          STY $D400
          STX $D40E
-         LDY #0
-         LDA NOPCJA
-         CMP #2
-         BNE PLTRUPPIC9
-         LDY POM
-PLTRUPPIC9 JSR WAITFIRE
+
+         LDA POM
+         JSR GET_PLAYER_JOYSTICK
+         TAY
+
+         JSR WAITFIRE
          JMP KONIECSCROFF
 ;
 PLKONIECPICPROC LDY #0

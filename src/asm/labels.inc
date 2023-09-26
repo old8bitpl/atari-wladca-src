@@ -113,7 +113,6 @@ NOBL     	org *+4
 NWINOBL  	org *+4
 NMCY     	org *+4
 ENDSTAT
-NOPCJA		org *+1
 NOPTPLJOY	org *+1
 ;
 
